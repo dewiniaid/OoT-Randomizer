@@ -331,9 +331,91 @@ entrance_shuffle_table = [
     ('WarpSong',        ('Prelude of Light Warp -> Temple of Time',                         { 'index': 0x05F4, 'addresses': [0xBF0246] })),
 
     ('Extra',           ('ZD Eyeball Frog Timeout -> Zoras Domain',                         { 'index': 0x0153 })),
-    ('Extra',           ('ZR Top of Waterfall -> Zora River',                               { 'index': 0x0199 })),
+    ('Extra',           ('ZR Top of Waterfall -> Zora River',                               { 'index': 0x0199 }))
 ]
 
+def _add_boss_entrances():
+    # Compute this at load time to save a lot of duplication
+    dungeon_data = {}
+    for type, forward, *reverse in entrance_shuffle_table:
+        if type != 'Dungeon':
+            continue
+        if not reverse:
+            continue
+        name, forward = forward
+        reverse = reverse[0][1]
+        if 'blue_warp' not in reverse:
+            continue
+        dungeon_data[name] = {
+            'dungeon_index': forward['index'],
+            'exit_index': reverse['index'],
+            'exit_blue_warp': reverse['blue_warp']
+        }
+
+    for source, target, dungeon, index, rindex, addresses in [
+        (
+            'Deku Tree Lobby', 'Deku Tree Boss Room',
+            'KF Outside Deku Tree -> Deku Tree Lobby',
+            0x040f, 0x025, [ 0xB71FF0, 0xB06292, 0xBC6162, 0xBC60AE ]
+        ),
+        (
+            'Dodongos Cavern Boss Area', 'Dodongos Cavern Boss Arena',
+            'Death Mountain -> Dodongos Cavern Beginning',
+            0x040b, 0x00c5, [ 0xB71FF2, 0xB062B6, 0xBC616E ]
+        ),
+        (
+            'Jabu Jabus Belly Boss Area', 'Jabu Jabus Belly Boss Arena',
+            'Zoras Fountain -> Jabu Jabus Belly Beginning',
+            0x0301, 0x0407, [ 0xB71FF4, 0xB062C2, 0xBC60C2 ]
+        ),
+        (
+            'Forest Temple Boss Region', 'Forest Temple Boss Arena',
+            'SFM Forest Temple Entrance Ledge -> Forest Temple Lobby',
+            0x0012, 0x024E, [ 0xB71FF6, 0xB062CE, 0xBC6182 ]
+        ),
+        (
+            'Fire Temple Lower', 'Fire Temple Boss Arena',
+            'DMC Fire Temple Entrance -> Fire Temple Lower',
+            0x0305, 0x0175, [ 0xB71FF8, 0xB062DA, 0xBC60CE ]
+        ),
+        (
+            'Water Temple Highest Water Level', 'Water Temple Boss Arena',
+            'Lake Hylia -> Water Temple Lobby',
+            0x0417, 0x0423, [ 0xB71FFA, 0xB062E6, 0xBC6196 ]
+        ),
+        (
+            'Spirit Temple Beyond Final Locked Door', 'Spirit Temple Boss Arena',
+            'Desert Colossus -> Spirit Temple Lobby',
+            0x008D, 0x02F5, [ 0xB71FFC, 0xB062F2, 0xBC6122 ]
+        ),
+        (
+            'Shadow Temple Beyond Boat', 'Shadow Temple Boss Arena',
+            'Graveyard Warp Pad Region -> Shadow Temple Entryway',
+            0x0413, 0x02B2, [ 0xB71FFC, 0xB062F2, 0xBC6122 ]
+        )
+    ]:
+        d = {'index': index, 'patch_addresses': addresses}
+        d.update(dungeon_data[dungeon])
+        entrance_shuffle_table.append(
+            ('Boss', (f"{source} -> {target}", d), (f"{target} -> {source}", {'index': rindex}))
+        )
+    # ('Boss',            ('Deku Tree Lobby -> Deku Tree Boss Room',                          { 'index': 0x040f, 'origin': 0x0000, 'boss_index': 0}),
+    #                     ('Deku Tree Boss Room -> Deku Tree Lobby',                          { 'index': 0x0252 })),
+    # ('Boss',            ('Dodongos Cavern Boss Area -> Dodongos Cavern Boss Arena',         { 'index': 0x040b, 'origin': 0x0004, 'boss_index': 1}),
+    #                     ('Dodongos Cavern Boss Arena -> Dodongos Cavern Boss Area',         { 'index': 0x00c5 })),
+    # ('Boss',            ('Jabu Jabus Belly Boss Area -> Jabu Jabus Belly Boss Arena',       { 'index': 0x0301, 'origin': 0x0028, 'boss_index': 2}),
+    #                     ('Jabu Jabus Belly Boss Arena -> Jabu Jabus Belly Boss Area',       { 'index': 0x0407 })),
+    # ('Boss',            ('Forest Temple Boss Region -> Forest Temple Boss Arena',           { 'index': 0x0012, 'origin': 0x0169, 'boss_index': 3}),
+    #                     ('Forest Temple Boss Arena -> Forest Temple Boss Region',           { 'index': 0x024E })),
+    # ('Boss',            ('Fire Temple Lower -> Fire Temple Boss Arena',                     { 'index': 0x0305, 'origin': 0x0165, 'boss_index': 4}),
+    #                     ('Fire Temple Boss Arena -> Fire Temple Lower',                     { 'index': 0x0175 })),
+    # ('Boss',            ('Water Temple Highest Water Level -> Water Temple Boss Arena',     { 'index': 0x0417, 'origin': 0x0010, 'boss_index': 5}),
+    #                     ('Water Temple Boss Arena -> Water Temple Highest Water Level',     { 'index': 0x0423 })),
+    # ('Boss',            ('Spirit Temple Beyond Final Locked Door -> Spirit Temple Boss Arena', { 'index': 0x008D, 'origin': 0x0082, 'boss_index': 6}),
+    #                     ('Spirit Temple Boss Arena -> Spirit Temple Beyond Final Locked Door', { 'index': 0x02F5 })),
+    # ('Boss',            ('Shadow Temple Beyond Boat -> Shadow Temple Boss Arena',           { 'index': 0x0413, 'origin': 0x0037, 'boss_index': 7}),
+    #                     ('Shadow Temple Boss Arena -> Shadow Temple Beyond Boat',           { 'index': 0x02B2 })),
+_add_boss_entrances()
 
 # Basically, the entrances in the list above that go to:
 # - DMC Central Local (child access for the bean and skull)
@@ -410,6 +492,9 @@ def shuffle_random_entrances(worlds):
             if worlds[0].decouple_entrances:
                 entrance_pools['DungeonReverse'] = [entrance.reverse for entrance in entrance_pools['Dungeon']]
 
+        if worlds[0].shuffle_bosses:
+            entrance_pools['Boss'] = world.get_shufflable_entrances(type='Boss', only_primary=True)
+
         if worlds[0].shuffle_interior_entrances:
             entrance_pools['Interior'] = world.get_shufflable_entrances(type='Interior', only_primary=True)
             if worlds[0].shuffle_special_interior_entrances:
@@ -437,11 +522,11 @@ def shuffle_random_entrances(worlds):
 
         # Combine all entrance pools into one when mixing entrance pools
         if worlds[0].mix_entrance_pools == 'all':
-            entrance_pools = {'Mixed': list(chain.from_iterable(entrance_pools.values()))}
+            entrance_pools = {'Mixed': list(filter(lambda entrance: entrance.type != 'Boss', chain.from_iterable(entrance_pools.values())))}
         elif worlds[0].mix_entrance_pools == 'indoor':
             if worlds[0].shuffle_overworld_entrances:
                 ow_entrance_pool = entrance_pools['Overworld']
-            entrance_pools = {'Mixed': list(filter(lambda entrance: entrance.type != 'Overworld', chain.from_iterable(entrance_pools.values())))}
+            entrance_pools = {'Mixed': list(filter(lambda entrance: entrance.type not in ('Overworld', 'Boss'), chain.from_iterable(entrance_pools.values())))}
             if worlds[0].shuffle_overworld_entrances:
                 entrance_pools['Overworld'] = ow_entrance_pool
 
@@ -855,10 +940,10 @@ def get_entrance_replacing(region, entrance_name):
 
 
 # Change connections between an entrance and a target assumed entrance, in order to test the connections afterwards if necessary
-def change_connections(entrance, target_entrance):
+def change_connections(entrance: Entrance, target_entrance: Entrance):
     entrance.connect(target_entrance.disconnect())
     entrance.replaces = target_entrance.replaces
-    if entrance.reverse and not entrance.world.decouple_entrances:
+    if entrance.reverse and (entrance.type == 'Boss' or not entrance.world.decouple_entrances):
         target_entrance.replaces.reverse.connect(entrance.reverse.assumed.disconnect())
         target_entrance.replaces.reverse.replaces = entrance.reverse
 
@@ -867,7 +952,7 @@ def change_connections(entrance, target_entrance):
 def restore_connections(entrance, target_entrance):
     target_entrance.connect(entrance.disconnect())
     entrance.replaces = None
-    if entrance.reverse and not entrance.world.decouple_entrances:
+    if entrance.reverse and (entrance.type == 'Boss' or not entrance.world.decouple_entrances):
         entrance.reverse.assumed.connect(target_entrance.replaces.reverse.disconnect())
         target_entrance.replaces.reverse.replaces = None
 
@@ -876,7 +961,7 @@ def restore_connections(entrance, target_entrance):
 def confirm_replacement(entrance, target_entrance):
     delete_target_entrance(target_entrance)
     logging.getLogger('').debug('Connected %s To %s [World %d]', entrance, entrance.connected_region, entrance.world.id)
-    if entrance.reverse and not entrance.world.decouple_entrances:
+    if entrance.reverse and (entrance.type == 'Boss' or not entrance.world.decouple_entrances):
         replaced_reverse = target_entrance.replaces.reverse
         delete_target_entrance(entrance.reverse.assumed)
         logging.getLogger('').debug('Connected %s To %s [World %d]', replaced_reverse, replaced_reverse.connected_region, replaced_reverse.world.id)
