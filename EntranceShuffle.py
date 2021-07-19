@@ -348,49 +348,49 @@ def _add_boss_entrances():
             'exit_blue_warp': reverse['blue_warp']
         }
 
-    for source, target, dungeon, index, rindex, addresses in [
+    for source, target, boss, dungeon, index, rindex, addresses in [
         (
-            'Deku Tree Lobby', 'Deku Tree Boss Room',
+            'Deku Tree Lobby', 'Deku Tree Boss Room', 'Queen Gohma',
             'KF Outside Deku Tree -> Deku Tree Lobby',
             0x040f, 0x025, [ 0xB71FF0, 0xB06292, 0xBC6162, 0xBC60AE ]
         ),
         (
-            'Dodongos Cavern Boss Area', 'Dodongos Cavern Boss Arena',
+            'Dodongos Cavern Boss Area', 'Dodongos Cavern Boss Arena', 'King Dodongo',
             'Death Mountain -> Dodongos Cavern Beginning',
             0x040b, 0x00c5, [ 0xB71FF2, 0xB062B6, 0xBC616E ]
         ),
         (
-            'Jabu Jabus Belly Boss Area', 'Jabu Jabus Belly Boss Arena',
+            'Jabu Jabus Belly Boss Area', 'Jabu Jabus Belly Boss Arena', 'Barinade',
             'Zoras Fountain -> Jabu Jabus Belly Beginning',
             0x0301, 0x0407, [ 0xB71FF4, 0xB062C2, 0xBC60C2 ]
         ),
         (
-            'Forest Temple Boss Region', 'Forest Temple Boss Arena',
+            'Forest Temple Boss Region', 'Forest Temple Boss Arena', 'Phantom Ganon',
             'SFM Forest Temple Entrance Ledge -> Forest Temple Lobby',
             0x0012, 0x024E, [ 0xB71FF6, 0xB062CE, 0xBC6182 ]
         ),
         (
-            'Fire Temple Lower', 'Fire Temple Boss Arena',
+            'Fire Temple Lower', 'Fire Temple Boss Arena', 'Volvagia',
             'DMC Fire Temple Entrance -> Fire Temple Lower',
             0x0305, 0x0175, [ 0xB71FF8, 0xB062DA, 0xBC60CE ]
         ),
         (
-            'Water Temple Highest Water Level', 'Water Temple Boss Arena',
+            'Water Temple Highest Water Level', 'Water Temple Boss Arena', 'Morpha',
             'Lake Hylia -> Water Temple Lobby',
             0x0417, 0x0423, [ 0xB71FFA, 0xB062E6, 0xBC6196 ]
         ),
         (
-            'Spirit Temple Beyond Final Locked Door', 'Spirit Temple Boss Arena',
+            'Spirit Temple Beyond Final Locked Door', 'Spirit Temple Boss Arena', 'Twinrova',
             'Desert Colossus -> Spirit Temple Lobby',
             0x008D, 0x02F5, [ 0xB71FFC, 0xB062F2, 0xBC6122 ]
         ),
         (
-            'Shadow Temple Beyond Boat', 'Shadow Temple Boss Arena',
+            'Shadow Temple Beyond Boat', 'Shadow Temple Boss Arena', 'Bongo Bongo',
             'Graveyard Warp Pad Region -> Shadow Temple Entryway',
             0x0413, 0x02B2, [ 0xB71FFC, 0xB062F2, 0xBC6122 ]
         )
     ]:
-        d = {'index': index, 'patch_addresses': addresses}
+        d = {'index': index, 'patch_addresses': addresses, 'boss': boss}
         d.update(dungeon_data[dungeon])
         entrance_shuffle_table.append(
             ('Boss', (f"{source} -> {target}", d), (f"{target} -> {source}", {'index': rindex}))
@@ -561,6 +561,11 @@ def shuffle_random_entrances(worlds):
 
         for pool_type, entrance_pool in entrance_pools.items():
             shuffle_entrance_pool(world, worlds, entrance_pool, target_entrance_pools[pool_type], locations_to_ensure_reachable)
+
+            if pool_type == 'Boss':
+                for entrance in entrance_pool:
+                    entrance.connected_region.change_dungeon(entrance.parent_region.dungeon)
+
 
     # Multiple checks after shuffling entrances to make sure everything went fine
     max_search = Search.max_explore([world.state for world in worlds], complete_itempool)
