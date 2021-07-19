@@ -81,13 +81,23 @@
             "Shadow Temple Spike Walls Left Chest": "can_use(Dins_Fire)",
             "Shadow Temple Boss Key Chest": "can_use(Dins_Fire)",
             "Shadow Temple Invisible Floormaster Chest": "True",
-            "Shadow Temple Bongo Bongo Heart": "
-                (Small_Key_Shadow_Temple, 5) and Boss_Key_Shadow_Temple and
-                (Bow or can_use(Distant_Scarecrow) or (logic_shadow_statue and has_bombchus))",
-            "Bongo Bongo": "
-                (Small_Key_Shadow_Temple, 5) and Boss_Key_Shadow_Temple and
-                (Bow or can_use(Distant_Scarecrow) or (logic_shadow_statue and has_bombchus))",
             "Shadow Temple GS Triple Giant Pot": "True"
+        },
+        "exits": {
+            "Shadow Temple Boss Arena": "
+            (Small_Key_Shadow_Temple, 5) and Boss_Key_Shadow_Temple and
+            (Bow or can_use(Distant_Scarecrow) or (logic_shadow_statue and has_bombchus))"
+        }
+    },
+    {
+        "region_name": "Shadow Temple Boss Arena",
+        "dungeon": "Shadow Temple",
+        "locations": {
+            "Shadow Temple Bongo Bongo Heart": "Bow or can_use(Longshot) or (can_use(Slingshot) and Kokiri_Sword)",
+            "Bongo Bongo": "Bow or can_use(Longshot) or (can_use(Slingshot) and Kokiri_Sword)"
+        },
+        "exits": {
+            "Shadow Temple Beyond Boat": "False"
         }
     }
 ]
