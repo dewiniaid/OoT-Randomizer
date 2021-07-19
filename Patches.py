@@ -796,8 +796,47 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
 
         return exit_table
 
+    if world.shuffle_bosses:
+        #Credit to rattus128 for this ASM block.
+        #Gohma's save/death warp is optimized to use immediate 0 for the
+        #deku tree respawn. Use the delay slot before the switch table
+        #to hold Gohmas jump entrance as actual data so we can substitute
+        # the entrance index later.
+        rom.write_int32(0xB06290, 0x240E0000) #li t6, 0
+        rom.write_int32(0xB062B0, 0xAE0E0000) #sw t6, 0(s0)
+        rom.write_int32(0xBC60AC, 0x24180000) #li t8, 0
+        rom.write_int32(0xBC6160, 0x24180000) #li t8, 0
+        rom.write_int32(0xBC6168, 0xAD380000) #sw t8, 0(t1)
 
     def set_entrance_updates(entrances):
+        blue_warp_remaps = {}
+        if world.shuffle_bosses:
+            # First pass for boss shuffle
+            # We'll need to iterate more than once, so make a copy so we can iterate more than once.
+            entrances = list(entrances)
+            for entrance in entrances:
+                if entrance.type != 'Boss' or not entrance.replaces or 'patch_addresses' not in entrance.data:
+                    continue
+
+                new_boss = entrance.replaces.data
+                original_boss = entrance.data
+
+                # Fixup save/quit and death warping entrance IDs on bosses.
+                for address in new_boss['patch_addresses']:
+                    orig = rom.read_int16(address)
+                    print(f"Address: {address:08x}  Original: {orig:04x}  New: {original_boss['dungeon_index']:04x}")
+                    rom.write_int16(address, original_boss['dungeon_index'])
+
+                # Update blue warps.
+                # If dungeons are shuffled, we'll this in the next step -- that's fine.
+                copy_entrance_record(original_boss['exit_blue_warp'], new_boss['exit_index'], 2)
+                copy_entrance_record(original_boss['exit_blue_warp'] + 2, new_boss['exit_blue_warp'] + 2, 2)
+
+                # If dungeons are shuffled but their bosses are moved, they're going to refer to the wrong blue warp
+                # slots.  Create a table to remap them for later.
+                blue_warp_remaps[original_boss['exit_blue_warp']] = new_boss['exit_blue_warp']
+
+        # Boss shuffle done(?)
         for entrance in entrances:
             new_entrance = entrance.data
             replaced_entrance = entrance.replaces.data
@@ -807,7 +846,14 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
             for address in new_entrance.get('addresses', []):
                 rom.write_int16(address, replaced_entrance['index'])
 
+            patch_value = replaced_entrance.get('patch_value')
+            if patch_value is not None:
+                for address in new_entrance['patch_addresses']:
+                    rom.write_int16(address, patch_value)
+
             if "blue_warp" in new_entrance:
+                blue_warp = new_entrance["blue_warp"]
+                blue_warp = blue_warp_remaps.get(blue_warp, blue_warp)
                 if "blue_warp" in replaced_entrance:
                     blue_out_data =  replaced_entrance["blue_warp"]
                 else:
@@ -820,8 +866,8 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
                 # vanilla as it never took you to the exit and the lake fill is handled
                 # above by removing the cutscene completely. Child has problems with Adult
                 # blue warps, so always use the return entrance if a child.
-                copy_entrance_record(blue_out_data + 2, new_entrance["blue_warp"] + 2, 2)
-                copy_entrance_record(replaced_entrance["index"], new_entrance["blue_warp"], 2)
+                copy_entrance_record(blue_out_data + 2, blue_warp + 2, 2)
+                copy_entrance_record(replaced_entrance["index"], blue_warp, 2)
 
     exit_table = generate_exit_lookup_table()
 
