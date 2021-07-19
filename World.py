@@ -56,7 +56,8 @@ class World(object):
         self.shuffle_interior_entrances = self.shuffle_interior_entrances in ['simple', 'all']
 
         self.entrance_shuffle = self.shuffle_interior_entrances or self.shuffle_grotto_entrances or self.shuffle_dungeon_entrances or \
-                                self.shuffle_overworld_entrances or self.owl_drops or self.warp_songs or self.spawn_positions
+                                self.shuffle_overworld_entrances or self.owl_drops or self.warp_songs or self.spawn_positions or \
+                                self.shuffle_bosses
 
         self.ensure_tod_access = self.shuffle_interior_entrances or self.shuffle_overworld_entrances or self.spawn_positions
         self.disable_trade_revert = self.shuffle_interior_entrances or self.shuffle_overworld_entrances
@@ -594,6 +595,18 @@ class World(object):
 
     def get_shuffled_entrances(self, type=None, only_primary=False):
         return [entrance for entrance in self.get_shufflable_entrances(type=type, only_primary=only_primary) if entrance.shuffled]
+
+
+    def get_boss_map(self):
+        map = dict((boss, boss) for boss in self.boss_location_names)
+        if not self.shuffle_bosses:
+            return map
+
+        for entrance in self.get_shuffled_entrances('Boss', True):
+            if 'boss' not in entrance.data:
+                continue
+            map[entrance.data['boss']] = entrance.replaces.data['boss']
+        return map
 
 
     def has_beaten_game(self, state):
