@@ -191,6 +191,7 @@
     {
         "region_name": "Spirit Temple Boss Arena",
         "dungeon": "Spirit Temple",
+        "scene": "Spirit Temple Boss",
         "locations": {
             "Spirit Temple Twinrova Heart": "Mirror_Shield",
             "Twinrova": "Mirror_Shield"

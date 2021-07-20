@@ -29,6 +29,7 @@
     {
         "region_name": "Fire Temple Boss Arena",
         "dungeon": "Fire Temple",
+        "scene": "Fire Temple Boss",
         "locations": {
             "Fire Temple Volvagia Heart": "can_use(Goron_Tunic) and can_use(Megaton_Hammer)",
             "Volvagia": "can_use(Goron_Tunic) and can_use(Megaton_Hammer)"

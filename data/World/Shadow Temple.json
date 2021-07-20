@@ -92,6 +92,7 @@
     {
         "region_name": "Shadow Temple Boss Arena",
         "dungeon": "Shadow Temple",
+        "scene": "Shadow Temple Boss",
         "locations": {
             "Shadow Temple Bongo Bongo Heart": "Bow or can_use(Longshot) or (can_use(Slingshot) and Kokiri_Sword)",
             "Bongo Bongo": "Bow or can_use(Longshot) or (can_use(Slingshot) and Kokiri_Sword)"
