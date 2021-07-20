@@ -32,6 +32,7 @@
     },
     {
         "region_name": "Water Temple Boss Arena",
+        "scene": "Water Temple Boss",
         "dungeon":  "Water Temple",
         "events": {
             "Water Temple Clear": "Boss_Key_Water_Temple and can_use(Longshot)"

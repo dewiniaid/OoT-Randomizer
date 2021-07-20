@@ -159,6 +159,7 @@
     {
         "region_name": "Forest Temple Boss Arena",
         "dungeon": "Forest Temple",
+        "scene": "Forest Temple Boss",
         "locations": {
             "Forest Temple Phantom Ganon Heart": "(can_use(Hookshot) or can_use(Bow)) or
             (can_use(Slingshot) and (Kokiri_Sword or Sticks))",
