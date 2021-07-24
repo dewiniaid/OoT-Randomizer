@@ -2175,28 +2175,37 @@ def place_shop_items(rom, world, shop_items, messages, locations, init_shop_id=F
             shuffle_messages.shop_item_messages.extend(
                 [shop_item.description_message, shop_item.purchase_message])
 
-            if item_display.dungeonitem:
-                split_item_name = item_display.name.split('(')
-                split_item_name[1] = '(' + split_item_name[1]
-
-                if location.item.name == 'Ice Trap':
-                    split_item_name[0] = create_fake_name(split_item_name[0])
-
-                if world.settings.world_count > 1:
-                    description_text = '\x08\x05\x41%s  %d Rupees\x01%s\x01\x05\x42Player %d\x05\x40\x01Special deal! ONE LEFT!\x09\x0A\x02' % (split_item_name[0], location.price, split_item_name[1], location.item.world.id + 1)
-                else:
-                    description_text = '\x08\x05\x41%s  %d Rupees\x01%s\x01\x05\x40Special deal! ONE LEFT!\x01Get it while it lasts!\x09\x0A\x02' % (split_item_name[0], location.price, split_item_name[1])
-                purchase_text = '\x08%s  %d Rupees\x09\x01%s\x01\x1B\x05\x42Buy\x01Don\'t buy\x05\x40\x02' % (split_item_name[0], location.price, split_item_name[1])
+            if location.price == 1:
+                rupee_cost = '1 Rupee'
             else:
-                shop_item_name = getSimpleHintNoPrefix(item_display)
+                rupee_cost = f'{location.price} Rupees'
+
+            if item_display.dungeonitem:
+                shop_item_name, dungeon_name = item_display.name.split('(')
+                dungeon_name = '(' + dungeon_name
                 if location.item.name == 'Ice Trap':
                     shop_item_name = create_fake_name(shop_item_name)
 
-                if world.settings.world_count > 1:
-                    description_text = '\x08\x05\x41%s  %d Rupees\x01\x05\x42Player %d\x05\x40\x01Special deal! ONE LEFT!\x09\x0A\x02' % (shop_item_name, location.price, location.item.world.id + 1)
-                else:
-                    description_text = '\x08\x05\x41%s  %d Rupees\x01\x05\x40Special deal! ONE LEFT!\x01Get it while it lasts!\x09\x0A\x02' % (shop_item_name, location.price)
-                purchase_text = '\x08%s  %d Rupees\x09\x01\x01\x1B\x05\x42Buy\x01Don\'t buy\x05\x40\x02' % (shop_item_name, location.price)
+                description_text = f'\x08\x05\x41{shop_item_name}  {rupee_cost}\x01{dungeon_name}\x01\x05'
+                purchase_text = f'\x08{shop_item_name}  {rupee_cost}\x09\x01{dungeon_name}'
+            else:
+                shop_item_name = None
+                if world.distribution and world.distribution.locations:
+                    distribution_location = world.distribution.locations.get(location.name)
+                    if distribution_location and distribution_location.text:
+                        shop_item_name = distribution_location.text
+                if shop_item_name is None:
+                    shop_item_name = getSimpleHintNoPrefix(item_display)
+                    if location.item.name == 'Ice Trap':
+                        shop_item_name = create_fake_name(shop_item_name)
+                description_text = f'\x08\x05\x41{shop_item_name}  {rupee_cost}\x01\x05'
+                purchase_text = f'\x08{shop_item_name}  {rupee_cost}\x09\x01'
+            if world.settings.world_count > 1:
+                description_text += f'Player {location.item.world.id + 1}\x05\x40\x01Special deal! ONE LEFT!\x09\x0A\x02'
+            else:
+                description_text += '\x40Special deal! ONE LEFT!\x01Get it while it lasts!\x09\x0A\x02'
+
+            purchase_text += '\x01\x1B\x05\x42Buy\x01Don\'t buy\x05\x40\x02'
 
             update_message_by_id(messages, shop_item.description_message, description_text, 0x03)
             update_message_by_id(messages, shop_item.purchase_message, purchase_text, 0x03)

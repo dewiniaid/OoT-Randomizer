@@ -115,7 +115,7 @@ class ItemPoolRecord(SimpleRecord({'type': 'set', 'count': 1})):
             raise ValueError("Type must be 'add', 'remove', or 'set' in a ItemPoolRecord.")
 
 
-class LocationRecord(SimpleRecord({'item': None, 'player': None, 'price': None, 'model': None})):
+class LocationRecord(SimpleRecord({'item': None, 'player': None, 'price': None, 'model': None, 'text': None})):
     def __init__(self, src_dict):
         if isinstance(src_dict, str):
             src_dict = {'item':src_dict}
