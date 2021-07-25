@@ -817,19 +817,20 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
             for entrance in entrances:
                 if entrance.type != 'Boss' or not entrance.replaces or 'patch_addresses' not in entrance.data:
                     continue
+                if entrance == entrance.replaces:
+                    # This can happen if something is plando'd vanilla.
+                    continue
 
                 new_boss = entrance.replaces.data
                 original_boss = entrance.data
 
                 # Fixup save/quit and death warping entrance IDs on bosses.
                 for address in new_boss['patch_addresses']:
-                    orig = rom.read_int16(address)
-                    print(f"Address: {address:08x}  Original: {orig:04x}  New: {original_boss['dungeon_index']:04x}")
                     rom.write_int16(address, original_boss['dungeon_index'])
 
                 # Update blue warps.
                 # If dungeons are shuffled, we'll this in the next step -- that's fine.
-                copy_entrance_record(original_boss['exit_blue_warp'], new_boss['exit_index'], 2)
+                copy_entrance_record(original_boss['exit_index'], new_boss['exit_blue_warp'], 2)
                 copy_entrance_record(original_boss['exit_blue_warp'] + 2, new_boss['exit_blue_warp'] + 2, 2)
 
                 # If dungeons are shuffled but their bosses are moved, they're going to refer to the wrong blue warp
@@ -855,7 +856,7 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
                 blue_warp = new_entrance["blue_warp"]
                 blue_warp = blue_warp_remaps.get(blue_warp, blue_warp)
                 if "blue_warp" in replaced_entrance:
-                    blue_out_data =  replaced_entrance["blue_warp"]
+                    blue_out_data = replaced_entrance["blue_warp"]
                 else:
                     blue_out_data = replaced_entrance["index"]
                 # Blue warps have multiple hardcodes leading to them. The good news is
