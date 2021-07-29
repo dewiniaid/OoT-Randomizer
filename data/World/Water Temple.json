@@ -35,7 +35,7 @@
         "scene": "Water Temple Boss",
         "dungeon":  "Water Temple",
         "events": {
-            "Water Temple Clear": "Boss_Key_Water_Temple and can_use(Longshot)"
+            "Water Temple Clear": "can_use(Longshot)"
         },
         "locations": {
             "Morpha": "can_use(Hookshot)",
