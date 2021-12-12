@@ -1,5 +1,6 @@
 # text details: https://wiki.cloudmodding.com/oot/Text_Format
 
+import logging
 import random
 from TextBox import line_wrap
 
@@ -50,38 +51,39 @@ CONTROL_CODES = {
     0x1F: ('time', 0, lambda _: '<current time>' ),
 }
 
+# Maps unicode characters to corresponding bytes in OOTR's character set.
+CHARACTER_MAP = {
+    'Ⓐ': 0x9F,
+    'Ⓑ': 0xA0,
+    'Ⓒ': 0xA1,
+    'Ⓛ': 0xA2,
+    'Ⓡ': 0xA3,
+    'Ⓩ': 0xA4,
+    '⯅': 0xA5,
+    '⯆': 0xA6,
+    '⯇': 0xA7,
+    '⯈': 0xA8,
+    chr(0xA9): 0xA9,  # Down arrow   -- not sure what best supports this
+    chr(0xAA): 0xAA,  # Analog stick -- not sure what best supports this
+}
+# Support other ways of directly specifying controller inputs in OOTR's character set.
+# (This is backwards-compatibility support for ShadowShine57's previous patch.)
+CHARACTER_MAP.update(tuple((chr(v), v) for v in CHARACTER_MAP.values()))
+
+# Characters 0x20 thru 0x7D map perfectly.  range() excludes the last element.
+CHARACTER_MAP.update((chr(c), c) for c in range(0x20, 0x7e))
+
+# Other characters, source: https://wiki.cloudmodding.com/oot/Text_Format
+CHARACTER_MAP.update((c, ix) for ix, c in enumerate(
+        (
+            '\u203e'             # 0x7f
+            'ÀîÂÄÇÈÉÊËÏÔÖÙÛÜß'   # 0x80 .. #0x8f
+            'àáâäçèéêëïôöùûü'    # 0x90 .. #0x9e
+        ),
+        start=0x7f
+))
+
 SPECIAL_CHARACTERS = {
-    0x80: 'À',
-    0x81: 'Á',
-    0x82: 'Â',
-    0x83: 'Ä',
-    0x84: 'Ç',
-    0x85: 'È',
-    0x86: 'É',
-    0x87: 'Ê',
-    0x88: 'Ë',
-    0x89: 'Ï',
-    0x8A: 'Ô',
-    0x8B: 'Ö',
-    0x8C: 'Ù',
-    0x8D: 'Û',
-    0x8E: 'Ü',
-    0x8F: 'ß',
-    0x90: 'à',
-    0x91: 'á',
-    0x92: 'â',
-    0x93: 'ä',
-    0x94: 'ç',
-    0x95: 'è',
-    0x96: 'é',
-    0x97: 'ê',
-    0x98: 'ë',
-    0x99: 'ï',
-    0x9A: 'ô',
-    0x9B: 'ö',
-    0x9C: 'ù',
-    0x9D: 'û',
-    0x9E: 'ü',
     0x9F: '[A]',
     0xA0: '[B]',
     0xA1: '[C]',
@@ -96,39 +98,11 @@ SPECIAL_CHARACTERS = {
     0xAA: '[Control Stick]',
 }
 
-UTF8_TO_OOT_SPECIAL = {
-    (0xc3, 0x80): 0x80,
-    (0xc3, 0xae): 0x81,
-    (0xc3, 0x82): 0x82,
-    (0xc3, 0x84): 0x83,
-    (0xc3, 0x87): 0x84,
-    (0xc3, 0x88): 0x85,
-    (0xc3, 0x89): 0x86,
-    (0xc3, 0x8a): 0x87,
-    (0xc3, 0x8b): 0x88,
-    (0xc3, 0x8f): 0x89,
-    (0xc3, 0x94): 0x8A,
-    (0xc3, 0x96): 0x8B,
-    (0xc3, 0x99): 0x8C,
-    (0xc3, 0x9b): 0x8D,
-    (0xc3, 0x9c): 0x8E,
-    (0xc3, 0x9f): 0x8F,
-    (0xc3, 0xa0): 0x90,
-    (0xc3, 0xa1): 0x91,
-    (0xc3, 0xa2): 0x92,
-    (0xc3, 0xa4): 0x93,
-    (0xc3, 0xa7): 0x94,
-    (0xc3, 0xa8): 0x95,
-    (0xc3, 0xa9): 0x96,
-    (0xc3, 0xaa): 0x97,
-    (0xc3, 0xab): 0x98,
-    (0xc3, 0xaf): 0x99,
-    (0xc3, 0xb4): 0x9A,
-    (0xc3, 0xb6): 0x9B,
-    (0xc3, 0xb9): 0x9C,
-    (0xc3, 0xbb): 0x9D,
-    (0xc3, 0xbc): 0x9E,
-}
+REVERSE_MAP = list(chr(x) for x in range(256))
+
+for char, byte in CHARACTER_MAP.items():
+    SPECIAL_CHARACTERS.setdefault(byte, char)
+    REVERSE_MAP[byte] = char
 
 GOSSIP_STONE_MESSAGES = list( range(0x0401, 0x04FF) ) # ids of the actual hints
 GOSSIP_STONE_MESSAGES += [0x2053, 0x2054] # shared initial stone messages
@@ -304,14 +278,25 @@ KEYSANITY_MESSAGES = {
     0x0094: "\x13\x77\x08You found a \x05\x41Small Key\x05\x40\x01for the \x05\x41Fire Temple\x05\x40!\x09",
     0x0095: "\x13\x77\x08You found a \x05\x41Small Key\x05\x40\x01for the \x05\x43Water Temple\x05\x40!\x09",
     0x009B: "\x13\x77\x08You found a \x05\x41Small Key\x05\x40\x01for the \x05\x45Bottom of the Well\x05\x40!\x09",
-    0x009F: "\x13\x77\x08You found a \x05\x41Small Key\x05\x40\x01for the \x05\x46Gerudo Training\x01Grounds\x05\x40!\x09",
-    0x00A0: "\x13\x77\x08You found a \x05\x41Small Key\x05\x40\x01for the \x05\x46Gerudo's Fortress\x05\x40!\x09",
+    0x009F: "\x13\x77\x08You found a \x05\x41Small Key\x05\x40\x01for the \x05\x46Gerudo Training\x01Ground\x05\x40!\x09",
+    0x00A0: "\x13\x77\x08You found a \x05\x41Small Key\x05\x40\x01for the \x05\x46Thieves' Hideout\x05\x40!\x09",
     0x00A1: "\x13\x77\x08You found a \x05\x41Small Key\x05\x40\x01for \x05\x41Ganon's Castle\x05\x40!\x09",
     0x00A2: "\x13\x75\x08You found the \x05\x41Compass\x05\x40\x01for the \x05\x45Bottom of the Well\x05\x40!\x09",
     0x00A3: "\x13\x76\x08You found the \x05\x41Dungeon Map\x05\x40\x01for the \x05\x45Shadow Temple\x05\x40!\x09",
     0x00A5: "\x13\x76\x08You found the \x05\x41Dungeon Map\x05\x40\x01for the \x05\x45Bottom of the Well\x05\x40!\x09",
     0x00A6: "\x13\x77\x08You found a \x05\x41Small Key\x05\x40\x01for the \x05\x46Spirit Temple\x05\x40!\x09",
     0x00A9: "\x13\x77\x08You found a \x05\x41Small Key\x05\x40\x01for the \x05\x45Shadow Temple\x05\x40!\x09",
+}
+
+COLOR_MAP = {
+    'White':      '\x40',
+    'Red':        '\x41',
+    'Green':      '\x42',
+    'Blue':       '\x43',
+    'Light Blue': '\x44',
+    'Pink':       '\x45',
+    'Yellow':     '\x46',
+    'Black':      '\x47',
 }
 
 MISC_MESSAGES = {
@@ -345,23 +330,35 @@ def display_code_list(codes):
     return message
 
 
+def encode_text_string(text):
+    result = []
+    it = iter(text)
+    for ch in it:
+        n = ord(ch)
+        mapped = CHARACTER_MAP.get(ch)
+        if mapped:
+            result.append(mapped)
+            continue
+        if n in CONTROL_CODES:
+            result.append(n)
+            for _ in range(CONTROL_CODES[n][1]):
+                result.append(ord(next(it)))
+            continue
+        if n in CHARACTER_MAP.values(): # Character has already been translated
+            result.append(n)
+            continue
+        raise ValueError(f"While encoding {text!r}: Unable to translate unicode character {ch!r} ({n}).  (Already decoded: {result!r})")
+    return result
+
+
 def parse_control_codes(text):
     if isinstance(text, list):
         bytes = text
     elif isinstance(text, bytearray):
         bytes = list(text)
     else:
-        bytes = list(text.encode('utf-8'))
+        bytes = encode_text_string(text)
 
-    # Special characters encoded to utf-8 must be re-encoded to OoT's values for them.
-    # Tuple is used due to utf-8 encoding using two bytes.
-    i = 0
-    while i < len(bytes) - 1:
-        if (bytes[i], bytes[i+1]) in UTF8_TO_OOT_SPECIAL:
-            bytes[i] = UTF8_TO_OOT_SPECIAL[(bytes[i], bytes[i+1])]
-            del bytes[i+1]
-        i += 1
-    
     text_codes = []
     index = 0
     while index < len(bytes):
@@ -382,8 +379,7 @@ def parse_control_codes(text):
 
 
 # holds a single character or control code of a string
-class Text_Code():
-
+class Text_Code:
     def display(self):
         if self.code in CONTROL_CODES:
             return CONTROL_CODES[self.code][2](self.data)
@@ -420,7 +416,8 @@ class Text_Code():
             ret = chr(self.code) + ret
             return ret
         else:
-            return chr(self.code)
+            # raise ValueError(repr(REVERSE_MAP))
+            return REVERSE_MAP[self.code]
 
     # writes the code to the given offset, and returns the offset of the next byte
     def size(self):
@@ -451,16 +448,18 @@ class Text_Code():
 
     __str__ = __repr__ = display
 
-# holds a single message, and all its data
-class Message():
 
+# holds a single message, and all its data
+class Message:
     def display(self):
-        meta_data = ["#" + str(self.index),
-         "ID: 0x" + "{:04x}".format(self.id),
-         "Offset: 0x" + "{:06x}".format(self.offset),
-         "Length: 0x" + "{:04x}".format(self.unpadded_length) + "/0x" + "{:04x}".format(self.length),
-         "Box Type: " + str(self.box_type),
-         "Postion: " + str(self.position)]
+        meta_data = [
+            "#" + str(self.index),
+            "ID: 0x" + "{:04x}".format(self.id),
+            "Offset: 0x" + "{:06x}".format(self.offset),
+            "Length: 0x" + "{:04x}".format(self.unpadded_length) + "/0x" + "{:04x}".format(self.length),
+            "Box Type: " + str(self.box_type),
+            "Postion: " + str(self.position)
+        ]
         return ', '.join(meta_data) + '\n' + self.text
 
     def get_python_string(self):
@@ -471,14 +470,17 @@ class Message():
 
     # check if this is an unused message that just contains it's own id as text
     def is_id_message(self):
-        if self.unpadded_length == 5:
-            for i in range(4):
-                code = self.text_codes[i].code
-                if not (code in range(ord('0'),ord('9')+1) or code in range(ord('A'),ord('F')+1) or code in range(ord('a'),ord('f')+1) ):
-                    return False
-            return True
-        return False
-
+        if self.unpadded_length != 5:
+            return False
+        for i in range(4):
+            code = self.text_codes[i].code
+            if not (
+                    code in range(ord('0'), ord('9')+1)
+                    or code in range(ord('A'), ord('F')+1)
+                    or code in range(ord('a'), ord('f')+1)
+            ):
+                return False
+        return True
 
     def parse_text(self):
         self.text_codes = parse_control_codes(self.raw_text)
@@ -486,33 +488,32 @@ class Message():
         index = 0
         for text_code in self.text_codes:
             index += text_code.size()
-            if text_code.code == 0x02: # message end code
+            if text_code.code == 0x02:  # message end code
                 break
-            if text_code.code == 0x07: # goto
+            if text_code.code == 0x07:  # goto
                 self.has_goto = True
                 self.ending = text_code
-            if text_code.code == 0x0A: # keep-open
+            if text_code.code == 0x0A:  # keep-open
                 self.has_keep_open = True
                 self.ending = text_code
-            if text_code.code == 0x0B: # event
+            if text_code.code == 0x0B:  # event
                 self.has_event = True
                 self.ending = text_code
-            if text_code.code == 0x0E: # fade out
+            if text_code.code == 0x0E:  # fade out
                 self.has_fade = True
                 self.ending = text_code
-            if text_code.code == 0x10: # ocarina
+            if text_code.code == 0x10:  # ocarina
                 self.has_ocarina = True
                 self.ending = text_code
-            if text_code.code == 0x1B: # two choice
+            if text_code.code == 0x1B:  # two choice
                 self.has_two_choice = True
-            if text_code.code == 0x1C: # three choice
+            if text_code.code == 0x1C:  # three choice
                 self.has_three_choice = True
         self.text = display_code_list(self.text_codes)
         self.unpadded_length = index
 
     def is_basic(self):
         return not (self.has_goto or self.has_keep_open or self.has_event or self.has_fade or self.has_ocarina or self.has_two_choice or self.has_three_choice)
-
 
     # computes the size of a message, including padding
     def size(self):
@@ -527,7 +528,6 @@ class Message():
     
     # applies whatever transformations we want to the dialogs
     def transform(self, replace_ending=False, ending=None, always_allow_skip=True, speed_up_text=True):
-
         ending_codes = [0x02, 0x07, 0x0A, 0x0B, 0x0E, 0x10]
         box_breaks = [0x04, 0x0C]
         slows_text = [0x08, 0x09, 0x14]
@@ -554,29 +554,28 @@ class Message():
                 if (self.id == 0x605A or  # twinrova transformation
                     self.id == 0x706C or  # raru ending text
                     self.id == 0x70DD or  # ganondorf ending text
-                    self.id == 0x7070):   # zelda ending text
+                    self.id == 0x7070
+                ):   # zelda ending text
                     text_codes.append(code)
-                    text_codes.append(Text_Code(0x08, 0)) # allow instant
+                    text_codes.append(Text_Code(0x08, 0))  # allow instant
                 else:
-                    text_codes.append(Text_Code(0x04, 0)) # un-delayed break
-                    text_codes.append(Text_Code(0x08, 0)) # allow instant
+                    text_codes.append(Text_Code(0x04, 0))  # un-delayed break
+                    text_codes.append(Text_Code(0x08, 0))  # allow instant
             else:
                 text_codes.append(code)
 
         if replace_ending:
             if ending:
-                if speed_up_text and ending.code == 0x10: # ocarina
-                    text_codes.append(Text_Code(0x09, 0)) # disallow instant text
-                text_codes.append(ending) # write special ending
-            text_codes.append(Text_Code(0x02, 0)) # write end code
+                if speed_up_text and ending.code == 0x10:  # ocarina
+                    text_codes.append(Text_Code(0x09, 0))  # disallow instant text
+                text_codes.append(ending)  # write special ending
+            text_codes.append(Text_Code(0x02, 0))  # write end code
 
         self.text_codes = text_codes
 
-        
     # writes a Message back into the rom, using the given index and offset to update the table
     # returns the offset of the next message
     def write(self, rom, index, offset):
-
         # construct the table entry
         id_bytes = int_to_bytes(self.id, 2)
         offset_bytes = int_to_bytes(offset, 3)
@@ -595,7 +594,6 @@ class Message():
 
 
     def __init__(self, raw_text, index, id, opts, offset, length):
-
         self.raw_text = raw_text
 
         self.index = index
@@ -620,7 +618,6 @@ class Message():
     # read a single message from rom
     @classmethod
     def from_rom(cls, rom, index):
-
         entry_offset = ENG_TABLE_START + 8 * index
         entry = rom.read_bytes(entry_offset, 8)
         next = rom.read_bytes(entry_offset + 8, 8)
@@ -636,19 +633,7 @@ class Message():
 
     @classmethod
     def from_string(cls, text, id=0, opts=0x00):
-        bytes = list(text.encode('utf-8')) + [0x02]
-
-        # Clean up garbage values added when encoding special characters again.
-        bytes = list(filter(lambda a: a != 194, bytes)) # 0xC2 added before each accent char.
-        i = 0
-        while i < len(bytes) - 1:
-            if bytes[i] in SPECIAL_CHARACTERS and bytes[i] not in UTF8_TO_OOT_SPECIAL.values(): # This indicates it's one of the button chars (A button, etc).
-                # Have to delete 2 inserted garbage values.
-                del bytes[i-1]
-                del bytes[i-2]
-                i -= 2
-            i+= 1
-
+        bytes = text + "\x02"
         return cls(bytes, 0, id, opts, 0, len(bytes) + 1)
 
     @classmethod
@@ -868,7 +853,7 @@ def make_player_message(text):
 def update_item_messages(messages, world):
     new_item_messages = {**ITEM_MESSAGES, **KEYSANITY_MESSAGES}
     for id, text in new_item_messages.items():
-        if world.world_count > 1:
+        if world.settings.world_count > 1:
             update_message_by_id(messages, id, make_player_message(text), 0x23)
         else:
             update_message_by_id(messages, id, text, 0x23)
@@ -993,3 +978,30 @@ def shuffle_messages(messages, except_hints=True, always_allow_skip=True):
     ]))
 
     return permutation
+
+# Update warp song text boxes for ER
+def update_warp_song_text(messages, world):
+    msg_list = {
+        0x088D: 'Minuet of Forest Warp -> Sacred Forest Meadow',
+        0x088E: 'Bolero of Fire Warp -> DMC Central Local',
+        0x088F: 'Serenade of Water Warp -> Lake Hylia',
+        0x0890: 'Requiem of Spirit Warp -> Desert Colossus',
+        0x0891: 'Nocturne of Shadow Warp -> Graveyard Warp Pad Region',
+        0x0892: 'Prelude of Light Warp -> Temple of Time',
+    }
+
+    for id, entr in msg_list.items():
+        destination = world.get_entrance(entr).connected_region
+
+        if destination.pretty_name:
+            destination_name = destination.pretty_name
+        elif destination.hint:
+            destination_name = destination.hint
+        elif destination.dungeon:
+            destination_name = destination.dungeon.hint
+        else:
+            destination_name = destination.name
+        color = COLOR_MAP[destination.font_color or 'White']
+
+        new_msg = f"\x08\x05{color}Warp to {destination_name}?\x05\40\x09\x01\x01\x1b\x05{color}OK\x01No\x05\40"
+        update_message_by_id(messages, id, new_msg)

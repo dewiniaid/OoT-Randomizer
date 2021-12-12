@@ -26,6 +26,7 @@
 .include "hacks.asm"
 .include "malon.asm"
 .include "mido.asm"
+.include "weather.asm"
 
 ;==================================================================================================
 ; New code region
@@ -97,6 +98,7 @@ RANDO_CONTEXT:
 .include "carpet_salesman.asm"
 .include "medigoron.asm"
 .include "misc_colors.asm"
+.include "door_of_time_col_fix.asm"
 
 .align 0x10
 .importobj "../build/bundle.o"
@@ -107,6 +109,18 @@ DPAD_TEXTURE:
 .incbin("../resources/dpad.bin")
 TRIFORCE_ICON_TEXTURE:
 .incbin("../resources/triforce_sprite.bin")
+GILDED_CHEST_FRONT_TEXTURE:
+.incbin("../resources/gilded_chest_front.bin")
+GILDED_CHEST_BASE_TEXTURE:
+.incbin("../resources/gilded_chest_base.bin")
+SILVER_CHEST_FRONT_TEXTURE:
+.incbin("../resources/silver_chest_front.bin")
+SILVER_CHEST_BASE_TEXTURE:
+.incbin("../resources/silver_chest_base.bin")
+SKULL_CHEST_FRONT_TEXTURE:
+.incbin("../resources/skull_chest_front.bin")
+SKULL_CHEST_BASE_TEXTURE:
+.incbin("../resources/skull_chest_base.bin")
 
 .align 0x10
 PAYLOAD_END:

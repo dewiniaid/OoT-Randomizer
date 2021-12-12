@@ -12,13 +12,13 @@ class State(object):
         self.prog_items = Counter()
         self.world = parent
         self.search = None
-        self._won = self.won_triforce_hunt if self.world.triforce_hunt else self.won_normal
+        self._won = self.won_triforce_hunt if self.world.settings.triforce_hunt else self.won_normal
 
 
     ## Ensure that this will always have a value
     @property
     def is_glitched(self):
-        return self.world.logic_rules != 'glitchless'
+        return self.world.settings.logic_rules != 'glitchless'
 
 
     def copy(self, new_world=None):
@@ -41,7 +41,7 @@ class State(object):
 
 
     def won_triforce_hunt(self):
-        return self.has('Triforce Piece', self.world.triforce_count)
+        return self.has('Triforce Piece', self.world.settings.triforce_goal_per_world)
 
 
     def won_normal(self):
@@ -98,8 +98,26 @@ class State(object):
         return (self.count_of(ItemInfo.medallions) + self.count_of(ItemInfo.stones)) >= count
 
 
+    def has_item_goal(self, item_goal):
+        return self.prog_items[item_goal['name']] >= item_goal['minimum']
+
+
+    def has_full_item_goal(self, category, goal, item_goal):
+        local_goal = self.world.goal_categories[category.name].get_goal(goal.name)
+        per_world_max_quantity = local_goal.get_item(item_goal['name'])['quantity']
+        return self.prog_items[item_goal['name']] >= per_world_max_quantity
+
+
+    def has_all_item_goals(self):
+        for category in self.world.goal_categories.values():
+            for goal in category.goals:
+                if not all(map(lambda i: self.has_full_item_goal(category, goal, i), goal.items)):
+                    return False
+        return True
+
+
     def had_night_start(self):
-        stod = self.world.starting_tod
+        stod = self.world.settings.starting_tod
         # These are all not between 6:30 and 18:00
         if (stod == 'sunset' or         # 18
             stod == 'evening' or        # 21
@@ -112,7 +130,7 @@ class State(object):
 
     # Used for fall damage and other situations where damage is unavoidable
     def can_live_dmg(self, hearts):
-        mult = self.world.damage_multiplier
+        mult = self.world.settings.damage_multiplier
         if hearts*4 >= 3:
             return mult != 'ohko' and mult != 'quadruple'
         elif hearts*4 < 3:

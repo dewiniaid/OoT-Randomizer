@@ -210,14 +210,13 @@
           "settings": [
             "shuffle_mapcompass",
             "shuffle_smallkeys",
-            "shuffle_fortresskeys",
+            "shuffle_hideoutkeys",
             "shuffle_bosskeys",
             "shuffle_ganon_bosskey",
-            "lacs_condition",
-            "lacs_medallions",
-            "lacs_stones",
-            "lacs_rewards",
-            "lacs_tokens",
+            "ganon_bosskey_medallions",
+            "ganon_bosskey_stones",
+            "ganon_bosskey_rewards",
+            "ganon_bosskey_tokens",
             "enhance_map_compass"
           ]
         }
@@ -251,7 +250,8 @@
           "text": "Enable Tricks",
           "row_span": [8,10,10],
           "settings": [
-            "allowed_tricks"
+            "allowed_tricks",
+            "tricks_list_msg"
           ]
         }
       ]
@@ -333,7 +333,7 @@
           "row_span": [1,1,1],
           "settings": [
             "ocarina_songs",
-            "correct_chest_sizes",
+            "correct_chest_appearances",
             "clearer_hints",
             "hints",
             "hint_dist",
@@ -388,7 +388,8 @@
             "zora_color",
             "silver_gauntlets_color",
             "golden_gauntlets_color",
-            "mirror_shield_frame_color"
+            "mirror_shield_frame_color",
+            "extra_equip_colors"
           ]
         },
         {
