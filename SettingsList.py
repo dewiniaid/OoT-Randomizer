@@ -1005,6 +1005,28 @@ logic_tricks = {
                     from the switch and open the door before it
                     closes.
                     '''},
+    'Jabu Boss Door Switch with Bombchus': {
+        'name'    : 'logic_jabu_boss_door_chus',
+        'tags'    : ("Jabu Jabu's Belly", "Entrance",),
+        'tooltip' : '''\
+                    You can trigger the switch that opens the 
+                    final door before the Jabu boss room with
+                    a precisely aimed bombchu. 
+                    Since a boomerang is still required to
+                    defeat Barinade, this trick is only useful
+                    in conjunction with boss shuffle.
+                    '''},
+    'Jabu Boss Door Switch with Slingshot or Bow': {
+        'name'    : 'logic_jabu_boss_door_bow',
+        'tags'    : ("Jabu Jabu's Belly", "Entrance",),
+        'tooltip' : '''\
+                    You can trigger the switch that opens the 
+                    final door before the Jabu boss room with
+                    a precisely aimed slingshot or bow shot.
+                    Since a boomerang is still required to
+                    defeat Barinade, this trick is only useful
+                    in conjunction with boss shuffle.
+                    '''},
     'Kakariko Rooftop GS with Hover Boots': {
         'name'    : 'logic_kakariko_rooftop_gs',
         'tags'    : ("Kakariko Village", "Skulltulas",),

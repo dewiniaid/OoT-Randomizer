@@ -49,7 +49,7 @@
         },
         "exits": {
             "Jabu Jabus Belly Main": "True",
-            "Jabu Jabus Belly Boss Arena": "True"
+            "Jabu Jabus Belly Boss Arena": "can_use(Boomerang) or (logic_jabu_boss_door_bow and (can_use(Bow) or can_use(Slingshot)) or (logic_jabu_boss_door_chus and has_bombchus))"
         }
     },
     {
