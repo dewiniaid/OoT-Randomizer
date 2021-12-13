@@ -34,7 +34,7 @@ def assume_entrance_pool(entrance_pool):
     assumed_pool = []
     for entrance in entrance_pool:
         assumed_forward = entrance.assume_reachable()
-        if entrance.reverse != None and not entrance.world.settings.decouple_entrances:
+        if entrance.reverse != None and (entrance.type == 'Boss' or not entrance.world.settings.decouple_entrances):
             assumed_return = entrance.reverse.assume_reachable()
             world = entrance.world
             if not ((world.settings.mix_entrance_pools != 'off') and (world.settings.shuffle_overworld_entrances or world.shuffle_special_interior_entrances)):
@@ -951,6 +951,7 @@ def change_connections(entrance: Entrance, target_entrance: Entrance):
     entrance.connect(target_entrance.disconnect())
     entrance.replaces = target_entrance.replaces
     if entrance.reverse and (entrance.type == 'Boss' or not entrance.world.settings.decouple_entrances):
+        print(f'Entrance: {entrance} -- Reverse: {entrance.reverse} -- Assumed: {entrance.reverse.assumed}')
         target_entrance.replaces.reverse.connect(entrance.reverse.assumed.disconnect())
         target_entrance.replaces.reverse.replaces = entrance.reverse
 
