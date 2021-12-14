@@ -951,7 +951,6 @@ def change_connections(entrance: Entrance, target_entrance: Entrance):
     entrance.connect(target_entrance.disconnect())
     entrance.replaces = target_entrance.replaces
     if entrance.reverse and (entrance.type == 'Boss' or not entrance.world.settings.decouple_entrances):
-        print(f'Entrance: {entrance} -- Reverse: {entrance.reverse} -- Assumed: {entrance.reverse.assumed}')
         target_entrance.replaces.reverse.connect(entrance.reverse.assumed.disconnect())
         target_entrance.replaces.reverse.replaces = entrance.reverse
 
