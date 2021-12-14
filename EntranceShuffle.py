@@ -523,14 +523,17 @@ def shuffle_random_entrances(worlds):
                 entrance.reverse.shuffled = True
 
         # Combine all entrance pools into one when mixing entrance pools
+        boss_entrances = entrance_pools.get('Boss')
         if worlds[0].settings.mix_entrance_pools == 'all':
             entrance_pools = {'Mixed': list(filter(lambda entrance: entrance.type != 'Boss', chain.from_iterable(entrance_pools.values())))}
         elif worlds[0].settings.mix_entrance_pools == 'indoor':
-            if worlds[0].shuffle_overworld_entrances:
+            if worlds[0].settings.shuffle_overworld_entrances:
                 ow_entrance_pool = entrance_pools['Overworld']
             entrance_pools = {'Mixed': list(filter(lambda entrance: entrance.type not in ('Overworld', 'Boss'), chain.from_iterable(entrance_pools.values())))}
             if worlds[0].settings.shuffle_overworld_entrances:
                 entrance_pools['Overworld'] = ow_entrance_pool
+        if boss_entrances:
+            entrance_pools['Boss'] = boss_entrances
 
         # Build target entrance pools and set the assumption for entrances being reachable
         one_way_target_entrance_pools = {}
@@ -606,7 +609,6 @@ def shuffle_random_entrances(worlds):
             if pool_type == 'Boss':
                 for entrance in entrance_pool:
                     entrance.connected_region.change_dungeon(entrance.parent_region.dungeon)
-
 
     # Multiple checks after shuffling entrances to make sure everything went fine
     max_search = Search.max_explore([world.state for world in worlds], complete_itempool)
