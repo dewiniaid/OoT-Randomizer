@@ -918,6 +918,9 @@ class World(object):
             map[entrance.data['boss']] = entrance.replaces.data['boss']
         return map
 
+    def reverse_boss_map(self):
+        return {y: x for x, y in self.get_boss_map().items()}
+
 
     def has_beaten_game(self, state):
         return state.has('Triforce')
