@@ -818,16 +818,21 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
         return exit_table
 
     if world.settings.shuffle_bosses:
-        #Credit to rattus128 for this ASM block.
-        #Gohma's save/death warp is optimized to use immediate 0 for the
-        #deku tree respawn. Use the delay slot before the switch table
-        #to hold Gohmas jump entrance as actual data so we can substitute
+        # Credit to rattus128 for this ASM block.
+        # Gohma's save/death warp is optimized to use immediate 0 for the
+        # deku tree respawn. Use the delay slot before the switch table
+        # to hold Gohmas jump entrance as actual data so we can substitute
         # the entrance index later.
         rom.write_int32(0xB06290, 0x240E0000) #li t6, 0
         rom.write_int32(0xB062B0, 0xAE0E0000) #sw t6, 0(s0)
         rom.write_int32(0xBC60AC, 0x24180000) #li t8, 0
         rom.write_int32(0xBC6160, 0x24180000) #li t8, 0
         rom.write_int32(0xBC6168, 0xAD380000) #sw t8, 0(t1)
+
+        # Credit to engineer124
+        # Update the Jabu-Jabu Boss Exit to actually useful coordinates (and to load the correct room)
+        rom.write_int16(0x273E08E, 0xF7F4)  # Z coordinate of Jabu Boss Door Spawn
+        rom.write_byte(0x273E27B, 0x05)  # Set Spawn Room to be correct
 
     def set_entrance_updates(entrances):
         blue_warp_remaps = {}
