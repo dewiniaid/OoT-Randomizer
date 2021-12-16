@@ -350,17 +350,17 @@ def _add_boss_entrances():
 
     for source, target, boss, dungeon, index, rindex, addresses in [
         (
-            'Deku Tree Lobby', 'Deku Tree Boss Room', 'Queen Gohma',
+            'Deku Tree Basement Ledge', 'Gohma Boss Room', 'Queen Gohma',
             'KF Outside Deku Tree -> Deku Tree Lobby',
             0x040f, 0x0252, [ 0xB06292, 0xBC6162, 0xBC60AE ]
         ),
         (
-            'Dodongos Cavern Boss Area', 'Dodongos Cavern Boss Arena', 'King Dodongo',
+            'Dodongos Cavern Before Boss', 'King Dodongo Boss Room', 'King Dodongo',
             'Death Mountain -> Dodongos Cavern Beginning',
             0x040b, 0x00c5, [ 0xB062B6, 0xBC616E ]
         ),
         (
-            'Jabu Jabus Belly Boss Area', 'Jabu Jabus Belly Boss Arena', 'Barinade',
+            'Jabu Jabus Belly Before Boss', 'Barinade Boss Room', 'Barinade',
             'Zoras Fountain -> Jabu Jabus Belly Beginning',
             0x0301, 0x0407, [ 0xB062C2, 0xBC60C2 ]
         ),

@@ -80,12 +80,12 @@
             "Dodongos Cavern GS Alcove Above Stairs": "can_use(Hookshot) or can_use(Boomerang)"
         },
         "exits": {
-            "Dodongos Cavern Boss Area": "has_explosives",
+            "Dodongos Cavern Before Boss": "has_explosives",
             "Dodongos Cavern Lobby": "True"
         }
     },
     {
-        "region_name": "Dodongos Cavern Boss Area",
+        "region_name": "Dodongos Cavern Before Boss",
         "dungeon": "Dodongos Cavern",
         "locations": {
             "Dodongos Cavern GS Back Room": "True",
@@ -93,11 +93,11 @@
         },
         "exits": {
             "Dodongos Cavern Lobby": "True",
-            "Dodongos Cavern Boss Arena": "True"
+            "King Dodongo Boss Room": "True"
         }
     },
     {
-        "region_name": "Dodongos Cavern Boss Arena",
+        "region_name": "King Dodongo Boss Room",
         "scene": "Dodongos Cavern Boss",
         "dungeon": "Dodongos Cavern",
         "locations": {
@@ -112,8 +112,7 @@
             (is_adult or Sticks or Kokiri_Sword)"
         },
         "exits": {
-            "Dodongos Cavern Boss Area": "True"
+            "Dodongos Cavern Before Boss": "True"
         }
     }
-
 ]

@@ -19,7 +19,7 @@
             "Jabu Jabus Belly MQ Second Room Lower Chest": "True",
             "Jabu Jabus Belly MQ Second Room Upper Chest": "
                 can_use(Hover_Boots) or can_use(Hookshot) or
-                at('Jabu Jabus Belly Boss Area', is_child)",
+                at('Jabu Jabus Belly Before Boss', is_child)",
             "Jabu Jabus Belly MQ Compass Chest": "True",
             "Jabu Jabus Belly MQ Basement Near Vines Chest": "True",
             "Jabu Jabus Belly MQ Basement Near Switches Chest": "True",
@@ -30,7 +30,8 @@
         },
         "exits": {
             "Jabu Jabus Belly Beginning": "True",
-            "Jabu Jabus Belly Depths": "has_explosives and can_use(Boomerang)"
+            "Jabu Jabus Belly Depths": "has_explosives and can_use(Boomerang)",
+            "Jabu Jabus Belly Before Boss": "'Jabu Jabus Belly Floor Lowered'"
         }
     },
     {
@@ -44,23 +45,36 @@
                 at('Jabu Jabus Belly Main', can_use(Hover_Boots) and can_use(Hookshot))"
         },
         "exits": {
-            "Jabu Jabus Belly Main": "True",
-            "Jabu Jabus Belly Boss Area": "Sticks or (can_use(Dins_Fire) and Kokiri_Sword)"
+            "Jabu Jabus Belly Main": "True"
+        },
+        "events": {
+            "Jabu Jabus Belly Floor Lowered": "Sticks or (can_use(Dins_Fire) and Kokiri_Sword)"
         }
     },
     {
-        "region_name": "Jabu Jabus Belly Boss Area",
+        "region_name": "Jabu Jabus Belly Before Boss",
         "dungeon": "Jabu Jabus Belly",
         "locations": {
             "Jabu Jabus Belly MQ Cow" : "can_play(Eponas_Song)",
             "Jabu Jabus Belly MQ Near Boss Chest": "True",
-            "Jabu Jabus Belly Barinade Heart": "True",
-            "Barinade": "True",
             "Jabu Jabus Belly MQ GS Near Boss": "True",
             "Fairy Pot": "has_bottle"
         },
         "exits": {
-            "Jabu Jabus Belly Main": "True"
+            "Jabu Jabus Belly Main": "True",
+            "Barinade Boss Room": "True"
+        }
+    },
+    {
+        "region_name": "Barinade Boss Room",
+        "dungeon": "Jabu Jabus Belly",
+        "scene": "Jabu Jabus Belly Boss",
+        "locations": {
+            "Jabu Jabus Belly Barinade Heart": "can_use(Boomerang) and (Sticks or Kokiri_Sword)",
+            "Barinade": "can_use(Boomerang) and (Sticks or Kokiri_Sword)"
+        },
+        "exits": {
+            "Jabu Jabus Belly Before Boss": "False"
         }
     }
 ]
