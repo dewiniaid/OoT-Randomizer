@@ -67,8 +67,13 @@ class World(object):
         self.ensure_tod_access = self.shuffle_interior_entrances or settings.shuffle_overworld_entrances or settings.spawn_positions
         self.disable_trade_revert = self.shuffle_interior_entrances or settings.shuffle_overworld_entrances
 
-        if settings.open_forest == 'closed' and (self.shuffle_special_interior_entrances or settings.shuffle_overworld_entrances or
-                                             settings.warp_songs or settings.spawn_positions):
+        if (
+            settings.open_forest == 'closed'
+            and (
+                self.shuffle_special_interior_entrances or settings.shuffle_overworld_entrances
+                or settings.warp_songs or settings.spawn_positions or settings.shuffle_bosses
+            )
+        ):
             self.settings.open_forest = 'closed_deku'
 
         self.triforce_goal = settings.triforce_goal_per_world * settings.world_count
