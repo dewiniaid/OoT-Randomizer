@@ -354,17 +354,17 @@ def _add_boss_entrances():
 
     for source, target, boss, dungeon, index, rindex, addresses in [
         (
-            'Deku Tree Lobby', 'Deku Tree Boss Room', 'Queen Gohma',
+            'Deku Tree Basement Ledge', 'Gohma Boss Room', 'Queen Gohma',
             'KF Outside Deku Tree -> Deku Tree Lobby',
             0x040f, 0x0252, [ 0xB06292, 0xBC6162, 0xBC60AE ]
         ),
         (
-            'Dodongos Cavern Boss Area', 'Dodongos Cavern Boss Arena', 'King Dodongo',
+            'Dodongos Cavern Before Boss', 'King Dodongo Boss Room', 'King Dodongo',
             'Death Mountain -> Dodongos Cavern Beginning',
             0x040b, 0x00c5, [ 0xB062B6, 0xBC616E ]
         ),
         (
-            'Jabu Jabus Belly Boss Area', 'Jabu Jabus Belly Boss Arena', 'Barinade',
+            'Jabu Jabus Belly Before Boss', 'Barinade Boss Room', 'Barinade',
             'Zoras Fountain -> Jabu Jabus Belly Beginning',
             0x0301, 0x0407, [ 0xB062C2, 0xBC60C2 ]
         ),
@@ -399,23 +399,6 @@ def _add_boss_entrances():
         entrance_shuffle_table.append(
             ('Boss', (f"{source} -> {target}", d), (f"{target} -> {source}", {'index': rindex}))
         )
-    # ('Boss',            ('Deku Tree Lobby -> Deku Tree Boss Room',                          { 'index': 0x040f, 'origin': 0x0000, 'boss_index': 0}),
-    #                     ('Deku Tree Boss Room -> Deku Tree Lobby',                          { 'index': 0x0252 })),
-    # ('Boss',            ('Dodongos Cavern Boss Area -> Dodongos Cavern Boss Arena',         { 'index': 0x040b, 'origin': 0x0004, 'boss_index': 1}),
-    #                     ('Dodongos Cavern Boss Arena -> Dodongos Cavern Boss Area',         { 'index': 0x00c5 })),
-    # ('Boss',            ('Jabu Jabus Belly Boss Area -> Jabu Jabus Belly Boss Arena',       { 'index': 0x0301, 'origin': 0x0028, 'boss_index': 2}),
-    #                     ('Jabu Jabus Belly Boss Arena -> Jabu Jabus Belly Boss Area',       { 'index': 0x0407 })),
-    # ('Boss',            ('Forest Temple Boss Region -> Forest Temple Boss Arena',           { 'index': 0x0012, 'origin': 0x0169, 'boss_index': 3}),
-    #                     ('Forest Temple Boss Arena -> Forest Temple Boss Region',           { 'index': 0x024E })),
-    # ('Boss',            ('Fire Temple Lower -> Fire Temple Boss Arena',                     { 'index': 0x0305, 'origin': 0x0165, 'boss_index': 4}),
-    #                     ('Fire Temple Boss Arena -> Fire Temple Lower',                     { 'index': 0x0175 })),
-    # ('Boss',            ('Water Temple Highest Water Level -> Water Temple Boss Arena',     { 'index': 0x0417, 'origin': 0x0010, 'boss_index': 5}),
-    #                     ('Water Temple Boss Arena -> Water Temple Highest Water Level',     { 'index': 0x0423 })),
-    # ('Boss',            ('Spirit Temple Beyond Final Locked Door -> Spirit Temple Boss Arena', { 'index': 0x008D, 'origin': 0x0082, 'boss_index': 6}),
-    #                     ('Spirit Temple Boss Arena -> Spirit Temple Beyond Final Locked Door', { 'index': 0x02F5 })),
-    # ('Boss',            ('Shadow Temple Beyond Boat -> Shadow Temple Boss Arena',           { 'index': 0x0413, 'origin': 0x0037, 'boss_index': 7}),
-    #                     ('Shadow Temple Boss Arena -> Shadow Temple Beyond Boat',           { 'index': 0x02B2 })),
-
 
 _add_boss_entrances()
 
