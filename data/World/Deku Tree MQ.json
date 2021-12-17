@@ -99,11 +99,11 @@
         "scene": "Deku Tree Boss",
         "dungeon": "Deku Tree",
         "events": {
-            "Deku Tree Clear": "is_adult or Kokiri_Sword or Sticks"
+            "Deku Tree Clear": "(Nuts or can_use(Slingshot) or (logic_deku_adult_gohma and (can_use(Bow) or can_use(Hookshot)))) and can_jumpslash"
         },
         "locations": {
-            "Deku Tree Queen Gohma Heart": "is_adult or Kokiri_Sword or Sticks",
-            "Queen Gohma": "is_adult or Kokiri_Sword or Sticks"
+            "Deku Tree Queen Gohma Heart": "'Deku Tree Clear'",
+            "Queen Gohma": "'Deku Tree Clear'"
         },
         "exits": {
             "Deku Tree Basement Ledge": "True"
