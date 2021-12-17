@@ -1240,6 +1240,15 @@ logic_tricks = {
                     This trick applies to both Vanilla
                     and Master Quest.
                     '''},
+    'Queen Gohma as Adult without Deku Nuts': {
+        'name'    : 'logic_deku_adult_gohma',
+        'tags'    : ("Deku Tree",),
+        'tooltip' : '''\
+                    Gohma can be defeated without Deku Nuts as adult by using the Bow or Hookshot to stun her while she
+                    is on the ceiling, and she can be persuaded to climb up by hiding behind a pillar.  Since nuts are
+                    guaranteed to be available in Deku Tree, this this trick is only useful in conjunction with boss
+                    shuffle.  This trick applies to both Vanilla and Master Quest.
+                    '''},
     'Spirit Temple Lower Adult Switch with Bombs': {
         'name'    : 'logic_spirit_lower_adult_switch',
         'tags'    : ("Spirit Temple",),
