@@ -17,7 +17,7 @@
             "Forest Temple NW Outdoors": "can_play(Song_of_Time) or is_child",
             "Forest Temple NE Outdoors": "can_use(Bow) or can_use(Slingshot)",
             "Forest Temple Block Push Room": "(Small_Key_Forest_Temple, 1)",
-            "Forest Temple Boss Region": "Forest_Temple_Jo_and_Beth and Forest_Temple_Amy_and_Meg"
+            "Forest Temple Before Boss": "Forest_Temple_Jo_and_Beth and Forest_Temple_Amy_and_Meg"
         }
     },
     {
@@ -146,18 +146,18 @@
         }
     },
     {
-        "region_name": "Forest Temple Boss Region",
+        "region_name": "Forest Temple Before Boss",
         "dungeon": "Forest Temple",
         "locations": {
             "Forest Temple Basement Chest": "True",
             "Forest Temple GS Basement": "can_use(Hookshot) or can_use(Boomerang)"
         },
         "exits": {
-            "Forest Temple Boss Arena": "Boss_Key_Forest_Temple"
+            "Phantom Ganon Boss Room": "Boss_Key_Forest_Temple"
         }
     },
     {
-        "region_name": "Forest Temple Boss Arena",
+        "region_name": "Phantom Ganon Boss Room",
         "dungeon": "Forest Temple",
         "scene": "Forest Temple Boss",
         "locations": {
@@ -167,7 +167,7 @@
             (can_use(Slingshot) and (Kokiri_Sword or Sticks))"
         },
         "exits": {
-            "Forest Temple Boss Region": "False"
+            "Forest Temple Before Boss": "False"
         }
     }
 ]
