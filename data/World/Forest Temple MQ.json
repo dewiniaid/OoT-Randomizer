@@ -34,7 +34,7 @@
                     (logic_forest_mq_block_puzzle and has_bombchus and can_use(Hookshot)))",
             "Forest Temple Outdoor Ledge": "
                 (logic_forest_mq_hallway_switch_jumpslash and can_use(Hover_Boots))",
-            "Forest Temple Boss Region": "
+            "Forest Temple Before Boss": "
                 Forest_Temple_Jo_and_Beth and Forest_Temple_Amy_and_Meg"
         }
     },
@@ -155,12 +155,27 @@
         }
     },
     {
-        "region_name": "Forest Temple Boss Region",
+        "region_name": "Forest Temple Before Boss",
         "dungeon": "Forest Temple",
         "locations": {
-            "Forest Temple MQ Basement Chest": "True",
-            "Forest Temple Phantom Ganon Heart": "Boss_Key_Forest_Temple",
-            "Phantom Ganon": "Boss_Key_Forest_Temple"
+            "Forest Temple MQ Basement Chest": "True"
+        },
+        "exits": {
+            "Phantom Ganon Boss Room": "Boss_Key_Forest_Temple"
+        }
+    },
+    {
+        "region_name": "Phantom Ganon Boss Room",
+        "dungeon": "Forest Temple",
+        "scene": "Forest Temple Boss",
+        "locations": {
+            "Forest Temple Phantom Ganon Heart": "(can_use(Hookshot) or can_use(Bow)) or
+            (can_use(Slingshot) and (Kokiri_Sword or Sticks))",
+            "Phantom Ganon": "(can_use(Hookshot) or can_use(Bow)) or
+            (can_use(Slingshot) and (Kokiri_Sword or Sticks))"
+        },
+        "exits": {
+            "Forest Temple Before Boss": "False"
         }
     }
 ]

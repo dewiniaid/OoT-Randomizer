@@ -365,27 +365,27 @@ def _add_boss_entrances():
             0x0301, 0x0407, [ 0xB062C2, 0xBC60C2 ]
         ),
         (
-            'Forest Temple Boss Region', 'Forest Temple Boss Arena', 'Phantom Ganon',
+            'Forest Temple Before Boss', 'Phantom Ganon Boss Room', 'Phantom Ganon',
             'SFM Forest Temple Entrance Ledge -> Forest Temple Lobby',
             0x000c, 0x024E, [ 0xB062CE, 0xBC6182 ]
         ),
         (
-            'Fire Temple Lower', 'Fire Temple Boss Arena', 'Volvagia',
+            'Fire Temple Lower', 'Volvagia Boss Room', 'Volvagia',
             'DMC Fire Temple Entrance -> Fire Temple Lower',
             0x0305, 0x0175, [ 0xB062DA, 0xBC60CE ]
         ),
         (
-            'Water Temple Highest Water Level', 'Water Temple Boss Arena', 'Morpha',
+            'Water Temple Lobby', 'Morpha Boss Room', 'Morpha',
             'Lake Hylia -> Water Temple Lobby',
             0x0417, 0x0423, [ 0xB062E6, 0xBC6196 ]
         ),
         (
-            'Spirit Temple Beyond Final Locked Door', 'Spirit Temple Boss Arena', 'Twinrova',
+            'Spirit Temple Before Boss', 'Twinrova Boss Room', 'Twinrova',
             'Desert Colossus -> Spirit Temple Lobby',
             0x008D, 0x02F5, [ 0xB062F2, 0xBC6122 ]
         ),
         (
-            'Shadow Temple Beyond Boat', 'Shadow Temple Boss Arena', 'Bongo Bongo',
+            'Shadow Temple Beyond Boat', 'Bongo Bongo Boss Room', 'Bongo Bongo',
             'Graveyard Warp Pad Region -> Shadow Temple Entryway',
             0x0413, 0x02B2, [ 0xB062FE, 0xBC61AA ]
         )

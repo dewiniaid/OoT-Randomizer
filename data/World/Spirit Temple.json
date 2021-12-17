@@ -166,7 +166,7 @@
             "Spirit Temple Hallway Right Invisible Chest": "(logic_lens_spirit or can_use(Lens_of_Truth)) and has_explosives"
         },
         "exits": {
-            "Spirit Temple Beyond Final Locked Door": "
+            "Spirit Temple Before Boss": "
                 (Small_Key_Spirit_Temple, 5) and 
                 (logic_spirit_wall or can_use(Longshot) or has_bombchus or 
                     ((Bombs or Nuts or can_use(Dins_Fire)) and 
@@ -174,7 +174,7 @@
         }
     },
     {
-        "region_name": "Spirit Temple Beyond Final Locked Door",
+        "region_name": "Spirit Temple Before Boss",
         "dungeon": "Spirit Temple",
         "locations": {
             "Spirit Temple Boss Key Chest": "
@@ -183,13 +183,13 @@
             "Spirit Temple Topmost Chest": "Mirror_Shield"
         },
         "exits": {
-            "Spirit Temple Boss Arena": "
+            "Twinrova Boss Room": "
             Mirror_Shield and has_explosives and
             Progressive_Hookshot and Boss_Key_Spirit_Temple"
         }
     },
     {
-        "region_name": "Spirit Temple Boss Arena",
+        "region_name": "Twinrova Boss Room",
         "dungeon": "Spirit Temple",
         "scene": "Spirit Temple Boss",
         "locations": {
@@ -197,7 +197,7 @@
             "Twinrova": "Mirror_Shield"
         },
         "exits": {
-            "Spirit Temple Beyond Final Locked Door": "False"
+            "Spirit Temple Before Boss": "False"
         }
     }
 ]

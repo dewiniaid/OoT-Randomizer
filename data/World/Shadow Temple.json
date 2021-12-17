@@ -84,13 +84,13 @@
             "Shadow Temple GS Triple Giant Pot": "True"
         },
         "exits": {
-            "Shadow Temple Boss Arena": "
-            (Small_Key_Shadow_Temple, 5) and Boss_Key_Shadow_Temple and
-            (Bow or can_use(Distant_Scarecrow) or (logic_shadow_statue and has_bombchus))"
+            "Bongo Bongo Boss Room": "
+                (Small_Key_Shadow_Temple, 5) and Boss_Key_Shadow_Temple and
+                (Bow or can_use(Distant_Scarecrow) or (logic_shadow_statue and has_bombchus))"
         }
     },
     {
-        "region_name": "Shadow Temple Boss Arena",
+        "region_name": "Bongo Bongo Boss Room",
         "dungeon": "Shadow Temple",
         "scene": "Shadow Temple Boss",
         "locations": {
