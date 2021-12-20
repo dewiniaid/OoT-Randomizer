@@ -92,11 +92,11 @@
             "Dodongos Cavern King Dodongo Heart": "
             can_blast_or_smash and
             (Bombs or Progressive_Strength_Upgrade) and
-            (is_adult or Sticks or Kokiri_Sword)",
+            can_jumpslash",
             "King Dodongo": "
             can_blast_or_smash and
             (Bombs or Progressive_Strength_Upgrade) and
-            (is_adult or Sticks or Kokiri_Sword)"
+            can_jumpslash"
         },
         "exits": {
             "Dodongos Cavern Before Boss": "True"
