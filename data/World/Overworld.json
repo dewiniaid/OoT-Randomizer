@@ -2439,7 +2439,7 @@
         "scene": "Deku Tree Boss",
         "dungeon": "Deku Tree",
         "events": {
-            "Deku Tree Clear": "(Nuts or can_use(Slingshot) or (logic_deku_adult_gohma and (can_use(Bow) or can_use(Hookshot)))) and can_jumpslash"
+            "Deku Tree Clear": "(Nuts or can_use(Slingshot) or (logic_deku_gohma_ceiling_stun and (can_use(Bow) or can_use(Hookshot) or can_use(Boomerang)))) and can_jumpslash"
         },
         "locations": {
             "Deku Tree Queen Gohma Heart": "'Deku Tree Clear'",
