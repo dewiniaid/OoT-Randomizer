@@ -2432,5 +2432,116 @@
         "exits": {
             "GV Fortress Side": "True"
         }
+    },
+
+    {
+        "region_name": "Gohma Boss Room",
+        "scene": "Deku Tree Boss",
+        "dungeon": "Deku Tree",
+        "events": {
+            "Deku Tree Clear": "(Nuts or can_use(Slingshot) or (logic_deku_adult_gohma and (can_use(Bow) or can_use(Hookshot)))) and can_jumpslash"
+        },
+        "locations": {
+            "Deku Tree Queen Gohma Heart": "'Deku Tree Clear'",
+            "Queen Gohma": "'Deku Tree Clear'"
+        },
+        "exits": {
+            "Deku Tree Basement Ledge": "True"
+        }
+    },
+    {
+        "region_name": "King Dodongo Boss Room",
+        "scene": "Dodongos Cavern Boss",
+        "dungeon": "Dodongos Cavern",
+        "locations": {
+            "Dodongos Cavern Boss Room Chest": "True",
+            "Dodongos Cavern King Dodongo Heart": "
+            can_blast_or_smash and
+            (Bombs or Progressive_Strength_Upgrade) and
+            can_jumpslash",
+            "King Dodongo": "
+            can_blast_or_smash and
+            (Bombs or Progressive_Strength_Upgrade) and
+            can_jumpslash"
+        },
+        "exits": {
+            "Dodongos Cavern Before Boss": "True"
+        }
+    },
+    {
+        "region_name": "Barinade Boss Room",
+        "dungeon": "Jabu Jabus Belly",
+        "scene": "Jabu Jabus Belly Boss",
+        "locations": {
+            "Jabu Jabus Belly Barinade Heart": "can_use(Boomerang) and (Sticks or Kokiri_Sword)",
+            "Barinade": "can_use(Boomerang) and (Sticks or Kokiri_Sword)"
+        },
+        "exits": {
+            "Jabu Jabus Belly Before Boss": "False"
+        }
+    },
+    {
+        "region_name": "Phantom Ganon Boss Room",
+        "dungeon": "Forest Temple",
+        "scene": "Forest Temple Boss",
+        "locations": {
+            "Forest Temple Phantom Ganon Heart": "(can_use(Hookshot) or can_use(Bow)) or
+            (can_use(Slingshot) and (Kokiri_Sword or Sticks))",
+            "Phantom Ganon": "(can_use(Hookshot) or can_use(Bow)) or
+            (can_use(Slingshot) and (Kokiri_Sword or Sticks))"
+        },
+        "exits": {
+            "Forest Temple Before Boss": "False"
+        }
+    },
+    {
+        "region_name": "Volvagia Boss Room",
+        "dungeon": "Fire Temple",
+        "locations": {
+            "Fire Temple Volvagia Heart": "can_use(Goron_Tunic) and can_use(Megaton_Hammer)",
+            "Volvagia": "can_use(Goron_Tunic) and can_use(Megaton_Hammer)"
+        },
+        "exits": {
+            "Fire Temple Lower": "False"
+        }
+    },
+    {
+        "region_name": "Morpha Boss Room",
+        "scene": "Water Temple Boss",
+        "dungeon":  "Water Temple",
+        "events": {
+            "Water Temple Clear": "can_use(Hookshot)"
+        },
+        "locations": {
+            "Morpha": "'Water Temple Clear'",
+            "Water Temple Morpha Heart": "'Water Temple Clear'"
+        },
+        "exits": {
+            "Water Temple Lobby": "False"
+        }
+    },
+    {
+        "region_name": "Bongo Bongo Boss Room",
+        "dungeon": "Shadow Temple",
+        "scene": "Shadow Temple Boss",
+        "locations": {
+            "Shadow Temple Bongo Bongo Heart": "(Kokiri_Sword or is_adult) and (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or can_use(Boomerang))",
+            "Bongo Bongo": "(Kokiri_Sword or is_adult) and (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or can_use(Boomerang))"
+        },
+        "exits": {
+            "Shadow Temple Beyond Boat": "False"
+        }
+    },
+    {
+        "region_name": "Twinrova Boss Room",
+        "dungeon": "Spirit Temple",
+        "scene": "Spirit Temple Boss",
+        "locations": {
+            "Spirit Temple Twinrova Heart": "can_use(Mirror_Shield)",
+            "Twinrova": "can_use(Mirror_Shield)"
+        },
+        "exits": {
+            "Spirit Temple Before Boss": "False"
+        }
     }
 ]

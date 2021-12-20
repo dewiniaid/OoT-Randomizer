@@ -15,21 +15,6 @@
         }
     },
     {
-        "region_name": "Morpha Boss Room",
-        "scene": "Water Temple Boss",
-        "dungeon":  "Water Temple",
-        "events": {
-            "Water Temple Clear": "can_use(Hookshot)"
-        },
-        "locations": {
-            "Morpha": "'Water Temple Clear'",
-            "Water Temple Morpha Heart": "'Water Temple Clear'"
-        },
-        "exits": {
-            "Water Temple Lobby": "False"
-        }
-    },
-    {
         "region_name": "Water Temple Dive",
         "dungeon": "Water Temple",
         "locations": {

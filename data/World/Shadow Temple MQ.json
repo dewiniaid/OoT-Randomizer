@@ -112,18 +112,6 @@
         }
     },
     {
-        "region_name": "Bongo Bongo Boss Room",
-        "dungeon": "Shadow Temple",
-        "scene": "Shadow Temple Boss",
-        "locations": {
-            "Shadow Temple Bongo Bongo Heart": "(Kokiri_Sword or is_adult) and (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or can_use(Boomerang))",
-            "Bongo Bongo": "(Kokiri_Sword or is_adult) and (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or can_use(Boomerang))"
-        },
-        "exits": {
-            "Shadow Temple Beyond Boat": "False"
-        }
-    },
-    {
         "region_name": "Shadow Temple Invisible Maze",
         "dungeon": "Shadow Temple",
         "locations": {
