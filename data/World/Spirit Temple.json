@@ -184,7 +184,7 @@
         },
         "exits": {
             "Twinrova Boss Room": "
-            Mirror_Shield and has_explosives and
+            can_use(Mirror_Shield) and has_explosives and
             Progressive_Hookshot and Boss_Key_Spirit_Temple"
         }
     },
@@ -193,8 +193,8 @@
         "dungeon": "Spirit Temple",
         "scene": "Spirit Temple Boss",
         "locations": {
-            "Spirit Temple Twinrova Heart": "Mirror_Shield",
-            "Twinrova": "Mirror_Shield"
+            "Spirit Temple Twinrova Heart": "can_use(Mirror_Shield)",
+            "Twinrova": "can_use(Mirror_Shield)"
         },
         "exits": {
             "Spirit Temple Before Boss": "False"

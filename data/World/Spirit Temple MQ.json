@@ -128,7 +128,7 @@
                 logic_lens_spirit_mq or can_use(Lens_of_Truth)"
         },
         "exits": {
-            "Twinrova Boss Room": "Mirror_Shield and Boss_Key_Spirit_Temple"
+            "Twinrova Boss Room": "can_use(Mirror_Shield) and Boss_Key_Spirit_Temple"
         }
     },
     {
@@ -150,8 +150,8 @@
         "dungeon": "Spirit Temple",
         "scene": "Spirit Temple Boss",
         "locations": {
-            "Spirit Temple Twinrova Heart": "Mirror_Shield",
-            "Twinrova": "Mirror_Shield"
+            "Spirit Temple Twinrova Heart": "can_use(Mirror_Shield)",
+            "Twinrova": "can_use(Mirror_Shield)"
         },
         "exits": {
             "Spirit Temple Before Boss": "False"
