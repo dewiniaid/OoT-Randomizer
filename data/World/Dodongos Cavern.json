@@ -95,24 +95,5 @@
             "Dodongos Cavern Lobby": "True",
             "King Dodongo Boss Room": "True"
         }
-    },
-    {
-        "region_name": "King Dodongo Boss Room",
-        "scene": "Dodongos Cavern Boss",
-        "dungeon": "Dodongos Cavern",
-        "locations": {
-            "Dodongos Cavern Boss Room Chest": "True",
-            "Dodongos Cavern King Dodongo Heart": "
-            can_blast_or_smash and
-            (Bombs or Progressive_Strength_Upgrade) and
-            can_jumpslash",
-            "King Dodongo": "
-            can_blast_or_smash and
-            (Bombs or Progressive_Strength_Upgrade) and
-            can_jumpslash"
-        },
-        "exits": {
-            "Dodongos Cavern Before Boss": "True"
-        }
     }
 ]

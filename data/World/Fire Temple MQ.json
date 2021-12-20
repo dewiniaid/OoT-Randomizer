@@ -102,16 +102,5 @@
                 (can_use(Hookshot) and (Small_Key_Fire_Temple, 5)) or
                 (logic_fire_mq_above_maze_gs and can_use(Longshot))"
         }
-    },
-    {
-        "region_name": "Volvagia Boss Room",
-        "dungeon": "Fire Temple",
-        "locations": {
-            "Fire Temple Volvagia Heart": "can_use(Goron_Tunic) and can_use(Megaton_Hammer)",
-            "Volvagia": "can_use(Goron_Tunic) and can_use(Megaton_Hammer)"
-        },
-        "exits": {
-            "Fire Temple Lower": "False"
-        }
     }
 ]

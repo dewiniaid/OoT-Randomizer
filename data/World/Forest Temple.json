@@ -155,19 +155,5 @@
         "exits": {
             "Phantom Ganon Boss Room": "Boss_Key_Forest_Temple"
         }
-    },
-    {
-        "region_name": "Phantom Ganon Boss Room",
-        "dungeon": "Forest Temple",
-        "scene": "Forest Temple Boss",
-        "locations": {
-            "Forest Temple Phantom Ganon Heart": "(can_use(Hookshot) or can_use(Bow)) or
-            (can_use(Slingshot) and (Kokiri_Sword or Sticks))",
-            "Phantom Ganon": "(can_use(Hookshot) or can_use(Bow)) or
-            (can_use(Slingshot) and (Kokiri_Sword or Sticks))"
-        },
-        "exits": {
-            "Forest Temple Before Boss": "False"
-        }
     }
 ]

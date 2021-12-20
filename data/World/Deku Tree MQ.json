@@ -93,20 +93,5 @@
             "Deku Tree Lobby": "True",
             "Gohma Boss Room": "here(has_shield) and here(has_fire_source_with_torch)"
         }
-    },
-    {
-        "region_name": "Gohma Boss Room",
-        "scene": "Deku Tree Boss",
-        "dungeon": "Deku Tree",
-        "events": {
-            "Deku Tree Clear": "(Nuts or can_use(Slingshot) or (logic_deku_adult_gohma and (can_use(Bow) or can_use(Hookshot)))) and can_jumpslash"
-        },
-        "locations": {
-            "Deku Tree Queen Gohma Heart": "'Deku Tree Clear'",
-            "Queen Gohma": "'Deku Tree Clear'"
-        },
-        "exits": {
-            "Deku Tree Basement Ledge": "True"
-        }
     }
 ]

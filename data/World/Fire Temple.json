@@ -26,18 +26,6 @@
         }
     },
     {
-        "region_name": "Volvagia Boss Room",
-        "dungeon": "Fire Temple",
-        "scene": "Fire Temple Boss",
-        "locations": {
-            "Fire Temple Volvagia Heart": "can_use(Goron_Tunic) and can_use(Megaton_Hammer)",
-            "Volvagia": "can_use(Goron_Tunic) and can_use(Megaton_Hammer)"
-        },
-        "exits": {
-            "Fire Temple Lower": "False"
-        }
-    },
-    {
         "region_name": "Fire Temple Big Lava Room",
         "dungeon": "Fire Temple",
         "locations": {

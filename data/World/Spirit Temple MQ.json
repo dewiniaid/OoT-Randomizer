@@ -144,17 +144,5 @@
         "locations": {
             "Spirit Temple Silver Gauntlets Chest": "True"
         }
-    },
-    {
-        "region_name": "Twinrova Boss Room",
-        "dungeon": "Spirit Temple",
-        "scene": "Spirit Temple Boss",
-        "locations": {
-            "Spirit Temple Twinrova Heart": "can_use(Mirror_Shield)",
-            "Twinrova": "can_use(Mirror_Shield)"
-        },
-        "exits": {
-            "Spirit Temple Before Boss": "False"
-        }
     }
 ]
