@@ -914,7 +914,7 @@ class World(object):
 
     def get_boss_map(self):
         map = dict((boss, boss) for boss in self.boss_location_names)
-        if not self.shuffle_bosses:
+        if not self.settings.shuffle_bosses:
             return map
 
         for entrance in self.get_shuffled_entrances('Boss', True):

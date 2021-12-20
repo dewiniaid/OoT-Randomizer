@@ -470,7 +470,7 @@ def shuffle_random_entrances(worlds):
             if worlds[0].settings.open_forest == 'closed':
                 entrance_pools['Dungeon'].remove(world.get_entrance('KF Outside Deku Tree -> Deku Tree Lobby'))
 
-        if worlds[0].shuffle_bosses:
+        if worlds[0].settings.shuffle_bosses:
             entrance_pools['Boss'] = world.get_shufflable_entrances(type='Boss', only_primary=True)
 
         if worlds[0].shuffle_interior_entrances:

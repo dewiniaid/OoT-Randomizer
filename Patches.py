@@ -796,7 +796,7 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
 
         return exit_table
 
-    if world.shuffle_bosses:
+    if world.settings.shuffle_bosses:
         # Credit to rattus128 for this ASM block.
         # Gohma's save/death warp is optimized to use immediate 0 for the
         # deku tree respawn. Use the delay slot before the switch table
@@ -815,7 +815,7 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
 
     def set_entrance_updates(entrances):
         blue_warp_remaps = {}
-        if world.shuffle_bosses:
+        if world.settings.shuffle_bosses:
             # First pass for boss shuffle
             # We'll need to iterate more than once, so make a copy so we can iterate more than once.
             entrances = list(entrances)
