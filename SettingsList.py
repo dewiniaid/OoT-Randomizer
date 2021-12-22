@@ -922,14 +922,14 @@ logic_tricks = {
                     needing a Bow.
                     Applies in both vanilla and MQ Shadow.
                     '''},
-    'Shadow Temple Bongo Bongo with Nothing': {
+    'Shadow Temple Bongo Bongo with Sword Only': {
         'name'    : 'logic_shadow_bongo',
         'tags'    : ("Shadow Temple",),
         'tooltip' : '''\
-                    If Shadow Temple dungeon shortcuts are enabled
-                    or bosses are shuffled, 
-                    Bongo Bongo can be fought without projectiles
-                    using precise sword slashes.
+                    Using precise sword slashes, Bongo Bongo can be
+                    defeated without using projectiles.  This is
+                    only relevant in conjunction with Shadow Temple
+                    dungeon shortcuts or shuffled dungeon bosses.
                     '''},
     'Stop Link the Goron with Din\'s Fire': {
         'name'    : 'logic_link_goron_dins',
@@ -1065,7 +1065,7 @@ logic_tricks = {
                     a precisely aimed bombchu. 
                     Since a boomerang is still required to
                     defeat Barinade, this trick is only useful
-                    in conjunction with boss shuffle.
+                    in conjunction with shuffled dungeon bosses.
                     '''},
     'Jabu Boss Door Switch with Slingshot or Bow': {
         'name'    : 'logic_jabu_boss_door_bow',
@@ -1076,7 +1076,7 @@ logic_tricks = {
                     a precisely aimed slingshot or bow shot.
                     Since a boomerang is still required to
                     defeat Barinade, this trick is only useful
-                    in conjunction with boss shuffle.
+                    in conjunction with shuffled dungeon bosses.
                     '''},
     'Kakariko Rooftop GS with Hover Boots': {
         'name'    : 'logic_kakariko_rooftop_gs',
