@@ -389,7 +389,7 @@ def _add_boss_entrances():
             0x008D, 0x02F5, [ 0xB062F2, 0xBC6122 ]
         ),
         (
-            'Shadow Temple Beyond Boat', 'Bongo Bongo Boss Room', 'Bongo Bongo',
+            'Shadow Temple Before Boss', 'Bongo Bongo Boss Room', 'Bongo Bongo',
             'Graveyard Warp Pad Region -> Shadow Temple Entryway',
             0x0413, 0x02B2, [ 0xB062FE, 0xBC61AA ]
         )

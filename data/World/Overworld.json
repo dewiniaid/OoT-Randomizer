@@ -2525,11 +2525,11 @@
         "dungeon": "Shadow Temple",
         "scene": "Shadow Temple Boss",
         "locations": {
-            "Shadow Temple Bongo Bongo Heart": "(Kokiri_Sword or is_adult) and (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or can_use(Boomerang))",
-            "Bongo Bongo": "(Kokiri_Sword or is_adult) and (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or can_use(Boomerang))"
+            "Shadow Temple Bongo Bongo Heart": "(Kokiri_Sword or is_adult) and (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or can_use(Boomerang) or logic_shadow_bongo)",
+            "Bongo Bongo": "(Kokiri_Sword or is_adult) and (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or can_use(Boomerang) or logic_shadow_bongo)"
         },
         "exits": {
-            "Shadow Temple Beyond Boat": "False"
+            "Shadow Temple Before Boss": "False"
         }
     },
     {
