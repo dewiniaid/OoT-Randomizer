@@ -2788,7 +2788,7 @@ setting_infos = [
         name           = 'shuffle_bosses',
         gui_text       = 'Shuffle Dungeon Bosses',
         gui_tooltip    = '''\
-            Shuffle Dungeon Boss Rooms.  This effects all stone and medallion dungeons other than Deku Tree.
+            Shuffle Dungeon Boss Rooms.  This effects all stone and medallion dungeons.
 
             This means you might e.g. walk through the boss door of Fire Temple and end up at the Morpha fight.
         ''',
