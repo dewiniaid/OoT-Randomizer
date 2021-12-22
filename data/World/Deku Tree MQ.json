@@ -20,7 +20,7 @@
                 here(has_fire_source_with_torch or can_use(Bow))",
             "Deku Tree Basement Water Room Front": "
                 here(can_use(Slingshot) or can_use(Bow)) and here(has_fire_source_with_torch)",
-            "Deku Tree Basement Ledge": "logic_deku_b1_skip or here(is_adult)"
+            "Deku Tree Basement Ledge": "logic_deku_b1_skip or here(is_adult) or deku_tree_shortcuts"
         }
     },
     {
@@ -91,7 +91,7 @@
         "exits" : {
             "Deku Tree Basement Back Room": "is_child",
             "Deku Tree Lobby": "True",
-            "Gohma Boss Room": "here(has_shield) and here(has_fire_source_with_torch)"
+            "Gohma Boss Room": "deku_tree_shortcuts or (here(has_shield) and here(has_fire_source_with_torch))"
         }
     }
 ]
