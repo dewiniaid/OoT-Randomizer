@@ -139,7 +139,7 @@
         "region_name": "Spirit Temple Before Boss",
         "dungeon": "Spirit Temple",
         "exits": {
-            "Twinrova Boss Room": "True"
+            "Twinrova Boss Room": "Boss_Key_Spirit_Temple"
         }
     },
     {
