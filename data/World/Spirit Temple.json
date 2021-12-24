@@ -202,7 +202,7 @@
             "Spirit Temple Topmost Chest": "Mirror_Shield"
         },
         "exits": {
-            "Twinrova Boss Room": "Mirror_Shield and has_explosives"
+            "Twinrova Boss Room": "Mirror_Shield and has_explosives and Boss_Key_Spirit_Temple"
         }
     }
 ]
