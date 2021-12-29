@@ -467,6 +467,9 @@ def shuffle_random_entrances(worlds):
                 if not worlds[0].settings.shuffle_dungeon_entrances and not worlds[0].settings.shuffle_overworld_entrances:
                     one_way_priorities['Requiem'] = priority_entrance_table['Requiem']
 
+        if worlds[0].settings.shuffle_bosses:
+            entrance_pools['Boss'] = world.get_shufflable_entrances(type='Boss', only_primary=True)
+
         if worlds[0].settings.shuffle_dungeon_entrances:
             entrance_pools['Dungeon'] = world.get_shufflable_entrances(type='Dungeon', only_primary=True)
             # The fill algorithm will already make sure gohma is reachable, however it can end up putting
@@ -476,9 +479,6 @@ def shuffle_random_entrances(worlds):
                 entrance_pools['Dungeon'].remove(world.get_entrance('KF Outside Deku Tree -> Deku Tree Lobby'))
             if worlds[0].settings.decouple_entrances:
                 entrance_pools['DungeonReverse'] = [entrance.reverse for entrance in entrance_pools['Dungeon']]
-
-        if worlds[0].settings.shuffle_bosses:
-            entrance_pools['Boss'] = world.get_shufflable_entrances(type='Boss', only_primary=True)
 
         if worlds[0].shuffle_interior_entrances:
             entrance_pools['Interior'] = world.get_shufflable_entrances(type='Interior', only_primary=True)
