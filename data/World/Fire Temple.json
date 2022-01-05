@@ -18,8 +18,10 @@
         "exits": {
             "DMC Fire Temple Entrance": "True",
             "Volvagia Boss Room": "
-                Boss_Key_Fire_Temple and (can_use(Goron_Tunic) or logic_fewer_tunic_requirements)
-                and (logic_fire_boss_door_jump or Hover_Boots or at('Fire Temple Upper', can_play(Song_of_Time) or has_explosives))",
+                is_adult and (
+                    Boss_Key_Fire_Temple and (can_use(Goron_Tunic) or logic_fewer_tunic_requirements)
+                    and (logic_fire_boss_door_jump or Hover_Boots or at('Fire Temple Upper', can_play(Song_of_Time) or has_explosives))
+                )",
             "Fire Temple Big Lava Room":"
                 (Small_Key_Fire_Temple, 2) and
                 (logic_fewer_tunic_requirements or can_use(Goron_Tunic))"
