@@ -2477,7 +2477,7 @@
             "Barinade": "can_use(Boomerang) and (Sticks or Kokiri_Sword)"
         },
         "exits": {
-            "Jabu Jabus Belly Before Boss": "False"
+            "Jabu Jabus Belly Before Boss": "True"
         }
     },
     {
@@ -2491,7 +2491,7 @@
             (can_use(Slingshot) and (Kokiri_Sword or Sticks))"
         },
         "exits": {
-            "Forest Temple Before Boss": "False"
+            "Forest Temple Before Boss": "True"
         }
     },
     {
@@ -2502,7 +2502,7 @@
             "Volvagia": "can_use(Goron_Tunic) and can_use(Megaton_Hammer)"
         },
         "exits": {
-            "Fire Temple Lower": "False"
+            "Fire Temple Lower": "True"
         }
     },
     {
@@ -2517,7 +2517,7 @@
             "Water Temple Morpha Heart": "'Water Temple Clear'"
         },
         "exits": {
-            "Water Temple Lobby": "False"
+            "Water Temple Lobby": "True"
         }
     },
     {
@@ -2529,7 +2529,7 @@
             "Bongo Bongo": "(Kokiri_Sword or is_adult) and (can_use(Hookshot) or can_use(Bow) or can_use(Slingshot) or can_use(Boomerang) or logic_shadow_bongo)"
         },
         "exits": {
-            "Shadow Temple Before Boss": "False"
+            "Shadow Temple Before Boss": "True"
         }
     },
     {
@@ -2541,7 +2541,7 @@
             "Twinrova": "can_use(Mirror_Shield)"
         },
         "exits": {
-            "Spirit Temple Before Boss": "False"
+            "Spirit Temple Before Boss": "True"
         }
     }
 ]
