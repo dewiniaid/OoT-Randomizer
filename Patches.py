@@ -837,6 +837,9 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
     def set_entrance_updates(entrances):
         blue_warp_remaps = {}
         if world.settings.shuffle_bosses:
+            # Connect lake hylia fill exit to revisit exit
+            rom.write_int16(0xAC995A, 0x060C)
+
             # First pass for boss shuffle
             # We'll need to iterate more than once, so make a copy so we can iterate more than once.
             entrances = list(entrances)
