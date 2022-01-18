@@ -1044,8 +1044,8 @@ logic_tricks = {
                     Skulltula somehow first. It can be killed
                     using Longshot, Bow, Bombchus or Din's Fire.
                     '''},
-    'Jabu Near Boss GS without Boomerang as Adult': {
-        'name'    : 'logic_jabu_boss_gs_adult',
+    'Jabu Near Boss Room with Hover Boots': {
+        'name'    : 'logic_jabu_boss_hover',
         'tags'    : ("Jabu Jabu's Belly", "Skulltulas", "Entrance",),
         'tooltip' : '''\
                     You can easily get over to the door to the

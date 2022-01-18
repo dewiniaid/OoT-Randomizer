@@ -22,10 +22,8 @@
             "Deku Tree Slingshot Room": "here(has_shield)",
             "Deku Tree Basement Back Room": "
                 (here(has_fire_source_with_torch or can_use(Bow)) and
-                    here(can_use(Slingshot) or can_use(Bow))) or
-                (is_child and (logic_deku_b1_skip or here(is_adult) or deku_tree_shortcuts))",
-            "Deku Tree Basement Ledge": "
-                logic_deku_b1_skip or here(is_adult) or can_use(Slingshot) or deku_tree_shortcuts"
+                    here(can_use(Slingshot) or can_use(Bow)))",
+            "Deku Tree Basement Ledge": "here(is_adult) or logic_deku_b1_skip or deku_tree_shortcuts"
         }
     },
     {

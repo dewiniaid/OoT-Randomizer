@@ -1844,14 +1844,11 @@ def patch_rom(spoiler:Spoiler, world:World, rom:Rom):
     jabu_stone_type = jabu_item.special['actor_type']
     rom.write_byte(0x277D0BB, jabu_stone_type)
     rom.write_byte(0x277D19B, jabu_stone_type)
-
-    # Set Dungeon Reward actors in Jabu Jabu to be accurate
     jabu_actor_type = jabu_item.special['actor_type']
     set_jabu_stone_actors(rom, jabu_actor_type)
     # Also set the right object for the actor, since medallions and stones require different objects
     # MQ is handled separately, as we include both objects in the object list in mqu.json (Scene 2, Room 6)
     if not world.dungeon_mq['Jabu Jabus Belly']:
-        jabu_stone_object = jabu_item.special['object_id']
         rom.write_int16(0x277D068, jabu_stone_object)
         rom.write_int16(0x277D168, jabu_stone_object)
 

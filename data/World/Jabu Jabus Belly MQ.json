@@ -92,8 +92,8 @@
             "Fairy Pot": "has_bottle"
         },
         "exits": {
-            "Jabu Jabus Belly Main": "here(can_use(Slingshot)) or jabu_shortcuts",
-            "Barinade Boss Room": "True"
+            "Jabu Jabus Belly Main": "True",
+            "Barinade Boss Room": "here(can_use(Slingshot)) or jabu_shortcuts"
         }
     }
 ]

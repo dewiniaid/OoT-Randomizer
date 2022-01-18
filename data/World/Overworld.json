@@ -2486,9 +2486,9 @@
         "scene": "Forest Temple Boss",
         "locations": {
             "Forest Temple Phantom Ganon Heart": "(can_use(Hookshot) or can_use(Bow)) or
-            (can_use(Slingshot) and (Kokiri_Sword or Sticks))",
+            (can_use(Slingshot) and Kokiri_Sword)",
             "Phantom Ganon": "(can_use(Hookshot) or can_use(Bow)) or
-            (can_use(Slingshot) and (Kokiri_Sword or Sticks))"
+            (can_use(Slingshot) and Kokiri_Sword)"
         },
         "exits": {
             "Forest Temple Before Boss": "True"
